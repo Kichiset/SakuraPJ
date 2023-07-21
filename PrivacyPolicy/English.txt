@@ -1,0 +1,23 @@
+【Privacy Policy】
+
+This Privacy Policy explains how [SakuraFerry] (hereinafter referred to as "the App") collects, uses, and stores personal information of users (hereinafter referred to as "Users") who use the App. By using the App, you agree to this Privacy Policy.
+
+    Information Collection
+        The App collects information provided by Users when they use the App (e.g., current time for displaying the schedule).
+        The App may use the device's location information with User's consent (e.g., to automatically display the nearest port).
+
+    Use of Collected Information
+        The App uses the collected information for the following purposes:
+            Displaying and updating the schedule.
+            Providing enhanced features.
+        The App does not share the collected information with third parties without User's explicit consent.
+
+    Information Storage
+        The App stores collected information with appropriate security measures.
+        User's information will not be provided to third parties except as required by law.
+
+    Changes to Privacy Policy
+        The App may revise this Privacy Policy as necessary. In the event of changes, notification will be made on the App's website or other appropriate means.
+
+    Contact Information
+        For inquiries regarding this Privacy Policy, please contact us at the following email address: [kichiset@gmail.com]

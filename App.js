@@ -52,7 +52,7 @@ const ferryTimetable = {
             "18:05",
             "18:25",
             "18:45",
-            "19:05",
+            "19:00",
             "19:30",
             "20:00",
             "21:00",
@@ -247,15 +247,16 @@ const ferryTimetable = {
 
 const getNextDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
-  const nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  return nextDepartureTime || 'No more departures today';
+  let nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
+  return nextDepartureTime || schedule[0];
 };
 
 const getNextNextDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
   const nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  const nextNextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > moment(nextDepartureTime, 'HH:mm'));
-  return nextNextDepartureTime || 'No more departures today';
+  let   nextNextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > moment(nextDepartureTime, 'HH:mm'));
+  //console.log('12:34');
+  return nextNextDepartureTime || schedule[1];
 };
 
 const App = () => {
@@ -310,14 +311,14 @@ const App = () => {
     <View style={styles.container}>
       <Text style={styles.currentTime}>現在時刻: {currentTime}</Text>
       <Text style={styles.currentTime}>{'\n'}鹿児島港</Text>
-      <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
+      <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
         <View style={[styles.column, styles.leftColumn]}>
-          <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
+          <Text style={styles.nextDeparture}>次発: {nextNextDepartureKagoshima}</Text>
         </View>
 
       <Text style={styles.currentTime}>{'\n'}桜島港</Text>
-      <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
-      <Text style={styles.nextDeparture}>次発: {nextNextDepartureKagoshima}</Text>
+      <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
+      <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
     </View>
   );
 };

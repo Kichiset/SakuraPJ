@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking} from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
+import Swiper from 'react-native-swiper';
 
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
+const url_01 = 'https://www.sakurajima-kinkowan-geo.jp/';
+
 const ferryTimetable = {
   "桜島港": {
     "平日": [
@@ -57,10 +60,7 @@ const ferryTimetable = {
             "20:00",
             "21:00",
             "22:00",
-            "23:00",
-            "24:00",
-            "25:00",
-            "26:00"
+            "23:00"
           ],
     "土日祝日": [
             "0:00",
@@ -118,10 +118,7 @@ const ferryTimetable = {
             "20:00",
             "21:00",
             "22:00",
-            "23:00",
-            "24:00",
-            "25:00",
-            "26:00"
+            "23:00"
           ]
   },
   "鹿児島港": {
@@ -176,10 +173,7 @@ const ferryTimetable = {
             "20:30",
             "21:30",
             "22:30",
-            "23:30",
-            "24:30",
-            "25:30",
-            "26:30"
+            "23:30"
           ],
     "土日祝日": [
             "0:30",
@@ -237,10 +231,7 @@ const ferryTimetable = {
             "20:30",
             "21:30",
             "22:30",
-            "23:30",
-            "24:30",
-            "25:30",
-            "26:30"
+            "23:30" 
           ]
   }
 };
@@ -306,9 +297,14 @@ const App = () => {
 
     fetchData();
   }, [currentTime]);
+  
+  const openLink = (url_01) => {
+    Linking.openURL(url_01).catch((err) => console.error('An error occurred', err));
+  };
 
   return (
-    <View style={styles.container}>
+  <SafeAreaView style={styles.safeArea}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在時刻: {currentTime}</Text>
       <Text style={styles.currentTime}>{'\n'}鹿児島港</Text>
       <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
@@ -319,15 +315,43 @@ const App = () => {
       <Text style={styles.currentTime}>{'\n'}桜島港</Text>
       <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
       <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
-    </View>
+      
+        <TouchableOpacity onPress={() => openLink(url_01)} style={styles.linkButton}>
+          <Image
+            source={require('./assets/header_logo.png')} // 画像ファイルのパスを指定
+            style={styles.linkButtonImage}
+          />
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => openLink(url_01)} style={styles.linkButton}>
+          <Image
+            source={require('./assets/GENTOO_PENGUIN_SAKURAJIMA_WORKSHOP.png')} // 画像ファイルのパスを指定
+            style={styles.linkButtonImage}
+          />
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => openLink(url_01)} style={styles.linkButton}>
+        <Text style={styles.linkButtonText}>広告主様募集中！！</Text>
+        </TouchableOpacity>
+    </ScrollView>
+  </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
+    //paddingTop: Platform.OS === 'android' ? 50 : 0, // Androidの場合、セーフエリアに対応するために25ポイント追加
+  },
+  container: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   currentTime: {
     fontSize: 20,
@@ -337,10 +361,26 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-leftColumn: {
+  leftColumn: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
+  linkButtonText: {
+    backgroundColor: '#CFCFCF',
+    padding: 20,
+    borderRadius: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },  
+  linkButton: {
+    marginTop: 20,
+    padding: 10,
+  },
+  linkButtonImage: {
+    width: 300,
+    height: 100,
+  },
 });
+
 
 export default App;

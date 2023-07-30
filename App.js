@@ -1,241 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking} from 'react-native';
+
+//import Carousel from 'react-native-snap-carousel';
+
 import axios from 'axios';
 import moment from 'moment';
-import Swiper from 'react-native-swiper';
 
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
 const url_01 = 'https://www.sakurajima-kinkowan-geo.jp/';
+const url_02 = 'https://onjunpenguin.com/';
 
-const ferryTimetable = {
-  "桜島港": {
-    "平日": [
-            "0:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00",
-            "6:05",
-            "6:25",
-            "6:45",
-            "7:05",
-            "7:25",
-            "7:45",
-            "8:05",
-            "8:25",
-            "8:45",
-            "9:05",
-            "9:25",
-            "9:45",
-            "10:05",
-            "10:25",
-            "10:45",
-            "11:05",
-            "11:25",
-            "11:45",
-            "12:05",
-            "12:25",
-            "12:45",
-            "13:05",
-            "13:25",
-            "13:45",
-            "14:05",
-            "14:25",
-            "14:45",
-            "15:05",
-            "15:25",
-            "15:45",
-            "16:05",
-            "16:25",
-            "16:45",
-            "17:05",
-            "17:25",
-            "17:45",
-            "18:05",
-            "18:25",
-            "18:45",
-            "19:00",
-            "19:30",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00"
-          ],
-    "土日祝日": [
-            "0:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00",
-            "6:05",
-            "6:25",
-            "6:45",
-            "7:05",
-            "7:25",
-            "7:45",
-            "8:05",
-            "8:25",
-            "8:45",
-            "9:05",
-            "9:25",
-            "9:45",
-            "10:05",
-            "10:25",
-            "10:45",
-            "11:05",
-            "11:25",
-            "11:45",
-            "12:05",
-            "12:25",
-            "12:45",
-            "13:05",
-            "13:25",
-            "13:45",
-            "14:05",
-            "14:15",
-            "14:30",
-            "14:45",
-            "15:00",
-            "15:15",
-            "15:30",
-            "15:45",
-            "16:00",
-            "16:15",
-            "16:30",
-            "16:45",
-            "17:00",
-            "17:15",
-            "17:30",
-            "17:45",
-            "18:00",
-            "18:15",
-            "18:30",
-            "18:45",
-            "19:05",
-            "19:30",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00"
-          ]
-  },
-  "鹿児島港": {
-    "平日": [
-            "0:30",
-            "1:30",
-            "2:30",
-            "3:30",
-            "4:30",
-            "5:30",
-            "6:00",
-            "6:30",
-            "7:00",
-            "7:20",
-            "7:40",
-            "8:00",
-            "8:20",
-            "8:40",
-            "9:00",
-            "9:20",
-            "9:40",
-            "10:00",
-            "10:20",
-            "10:40",
-            "11:00",
-            "11:20",
-            "11:40",
-            "12:00",
-            "12:20",
-            "12:40",
-            "13:00",
-            "13:20",
-            "13:40",
-            "14:00",
-            "14:20",
-            "14:40",
-            "15:00",
-            "15:20",
-            "15:40",
-            "16:00",
-            "16:20",
-            "16:40",
-            "17:00",
-            "17:20",
-            "17:40",
-            "18:00",
-            "18:20",
-            "18:40",
-            "19:00",
-            "19:30",
-            "20:00",
-            "20:30",
-            "21:30",
-            "22:30",
-            "23:30"
-          ],
-    "土日祝日": [
-            "0:30",
-            "1:30",
-            "2:30",
-            "3:30",
-            "4:30",
-            "5:30",
-            "6:00",
-            "6:30",
-            "7:00",
-            "7:20",
-            "7:40",
-            "8:00",
-            "8:20",
-            "8:40",
-            "9:00",
-            "9:20",
-            "9:40",
-            "10:00",
-            "10:20",
-            "10:40",
-            "11:00",
-            "11:20",
-            "11:40",
-            "12:00",
-            "12:20",
-            "12:40",
-            "13:00",
-            "13:20",
-            "13:40",
-            "14:00",
-            "14:15",
-            "14:30",
-            "14:45",
-            "15:00",
-            "15:15",
-            "15:30",
-            "15:45",
-            "16:00",
-            "16:15",
-            "16:30",
-            "16:45",
-            "17:00",
-            "17:15",
-            "17:30",
-            "17:45",
-            "18:00",
-            "18:15",
-            "18:30",
-            "18:45",
-            "19:00",
-            "19:30",
-            "20:00",
-            "20:30",
-            "21:30",
-            "22:30",
-            "23:30" 
-          ]
-  }
+const openLink = (url) => {
+  Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
 
+const peakSeason_prePost = ["2023-08-11", "2023-08-15"];
+const isPrePost = peakSeason_prePost.includes(moment().format('YYYY-MM-DD'));
+const peakSeason = ["2023-08-12", "2023-08-13", "2023-08-14", "2023-07-31"];
+const isPeak = peakSeason.includes(moment().format('YYYY-MM-DD'));
+
+const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
+
+// 桜島港と鹿児島港の平日と土日祝日の出発時刻データ
+import ferryTimetable from './timeTable.json';
+
+// 出発時刻の探索関数 (先発と次発を探す)
 const getNextDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
   let nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
@@ -250,13 +39,25 @@ const getNextNextDeparture = (schedule, currentTime) => {
   return nextNextDepartureTime || schedule[1];
 };
 
+// 現在時刻を基準に,時刻表を並べる関数
+const sortSchedule = (schedule, currentTime) => {
+  const currentMoment = moment(currentTime, 'HH:mm');
+  const todaySchedule = schedule.filter(time => moment(time, 'HH:mm') >= currentMoment);
+  const nextDaySchedule = schedule.filter(time => moment(time, 'HH:mm') < currentMoment);
+
+  return [...todaySchedule, ...nextDaySchedule];
+};
+
 const App = () => {
+  // 状態変数の定義
   const [currentTime, setCurrentTime] = useState('');
   const [nextDepartureSakurajima, setNextDepartureSakurajima] = useState('');
   const [nextDepartureKagoshima, setNextDepartureKagoshima] = useState('');
   const [nextNextDepartureSakurajima, setNextNextDepartureSakurajima] = useState('');
   const [nextNextDepartureKagoshima, setNextNextDepartureKagoshima] = useState('');
+  const [holidaysData, setHolidaysData] = useState({});
 
+  // 現在時刻を1秒ごとに更新するタイマーを設定する
   useEffect(() => {
     const getCurrentTime = () => {
       const now = moment().format('HH:mm:ss');
@@ -269,38 +70,65 @@ const App = () => {
       getCurrentTime();
     }, 1000);
 
+    // タイマーをクリーンアップする
     return () => {
       clearInterval(timer);
     };
   }, []);
 
+  // 祝日の判定を行うタイマーと初回のAPIリクエストを設定する
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(API_URL);
-        const holidays = Object.keys(response.data);
-        const isHoliday = holidays.includes(moment().format('YYYY-MM-DD'));
-        const sakurajimaSchedule = isHoliday ? ferryTimetable["桜島港"]["土日祝日"] : ferryTimetable["桜島港"]["平日"];
-        const kagoshimaSchedule = isHoliday ? ferryTimetable["鹿児島港"]["土日祝日"] : ferryTimetable["鹿児島港"]["平日"];
-        const nextDepartureSakurajima = getNextDeparture(sakurajimaSchedule, currentTime);
-        const nextDepartureKagoshima = getNextDeparture(kagoshimaSchedule, currentTime);
-        const nextNextDepartureSakurajima = getNextNextDeparture(sakurajimaSchedule, currentTime);
-        const nextNextDepartureKagoshima = getNextNextDeparture(kagoshimaSchedule, currentTime);
-        setNextDepartureSakurajima(nextDepartureSakurajima);
-        setNextDepartureKagoshima(nextDepartureKagoshima);
-        setNextNextDepartureSakurajima(nextNextDepartureSakurajima);
-        setNextNextDepartureKagoshima(nextNextDepartureKagoshima);
+        setHolidaysData(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching holidays data:', error);
       }
     };
 
+    // 起動時に一度だけAPIリクエストを行う
     fetchData();
-  }, [currentTime]);
-  
-  const openLink = (url_01) => {
-    Linking.openURL(url_01).catch((err) => console.error('An error occurred', err));
-  };
+
+    // 6時間ごとにAPIリクエストを行うタイマーを設定
+    const fetchHolidaysTimer = setInterval(() => {
+      fetchData();
+    }, 6 * 60 * 60 * 1000); // 6時間
+
+    // タイマーをクリーンアップする
+    return () => {
+      clearInterval(fetchHolidaysTimer);
+    };
+  }, []);
+
+  // 時刻表の更新と表示を行う
+  useEffect(() => {
+    const isHoliday = holidaysData.hasOwnProperty(moment().format('YYYY-MM-DD'));
+    
+     // 使用するダイヤの種類を選択する
+    let scheduleType = '平日';
+    if (isHoliday||isWeekEnd) {
+      scheduleType = '土日祝日';
+    } else if (isPeak) {
+      scheduleType = '繁忙期_1';
+    }
+
+    // ダイヤのスケジュールを取得
+    const sakurajimaSchedule = ferryTimetable["桜島港"][scheduleType];
+    const kagoshimaSchedule = ferryTimetable["鹿児島港"][scheduleType];
+
+    //
+    const sortedSakurajimaSchedule = sortSchedule(sakurajimaSchedule, currentTime);
+    const sortedKagoshimaSchedule = sortSchedule(kagoshimaSchedule, currentTime);
+    const nextDepartureSakurajima = getNextDeparture(sortedSakurajimaSchedule, currentTime);
+    const nextDepartureKagoshima = getNextDeparture(sortedKagoshimaSchedule, currentTime);
+    const nextNextDepartureSakurajima = getNextNextDeparture(sortedSakurajimaSchedule, currentTime);
+    const nextNextDepartureKagoshima = getNextNextDeparture(sortedKagoshimaSchedule, currentTime);
+    setNextDepartureSakurajima(nextDepartureSakurajima);
+    setNextDepartureKagoshima(nextDepartureKagoshima);
+    setNextNextDepartureSakurajima(nextNextDepartureSakurajima);
+    setNextNextDepartureKagoshima(nextNextDepartureKagoshima);
+  }, [currentTime, holidaysData]);
 
   return (
   <SafeAreaView style={styles.safeArea}>
@@ -323,7 +151,7 @@ const App = () => {
           />
         </TouchableOpacity>
         
-        <TouchableOpacity onPress={() => openLink(url_01)} style={styles.linkButton}>
+        <TouchableOpacity onPress={() => openLink(url_02)} style={styles.linkButton}>
           <Image
             source={require('./assets/GENTOO_PENGUIN_SAKURAJIMA_WORKSHOP.png')} // 画像ファイルのパスを指定
             style={styles.linkButtonImage}

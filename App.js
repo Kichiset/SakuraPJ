@@ -142,16 +142,11 @@ const App = () => {
 
       <Text style={styles.currentTime}>{'\n'}桜島港</Text>
       <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
-      <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
-      
-        <TouchableOpacity onPress={() => openLink(url_01)} style={styles.linkButton}>
-          <Image
-            source={require('./assets/header_logo.png')} // 画像ファイルのパスを指定
-            style={styles.linkButtonImage}
-          />
-        </TouchableOpacity>
+        <View style={[styles.column, styles.leftColumn]}>
+          <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
+        </View>
         
-        <TouchableOpacity onPress={() => openLink(url_02)} style={styles.linkButton}>
+        <TouchableOpacity onPress={() => openLink(url_02)} style={styles.linkButtonTop}>
           <Image
             source={require('./assets/GENTOO_PENGUIN_SAKURAJIMA_WORKSHOP.png')} // 画像ファイルのパスを指定
             style={styles.linkButtonImage}
@@ -200,13 +195,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },  
+  linkButtonTop: {
+    marginTop: 80,
+    padding: 10,
+  },
   linkButton: {
-    marginTop: 20,
+    marginTop: 10,
     padding: 10,
   },
   linkButtonImage: {
-    width: 300,
-    height: 100,
+    width: 200,
+    height: 60,
   },
 });
 

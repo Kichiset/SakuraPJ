@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking} from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking, Animated } from 'react-native';
 
 //import Carousel from 'react-native-snap-carousel';
 
@@ -16,7 +16,7 @@ const openLink = (url) => {
 
 const peakSeason_prePost = ["2023-08-11", "2023-08-15"];
 const isPrePost = peakSeason_prePost.includes(moment().format('YYYY-MM-DD'));
-const peakSeason = ["2023-08-12", "2023-08-13", "2023-08-14", "2023-07-31"];
+const peakSeason = ["2023-08-12", "2023-08-13", "2023-08-14"];
 const isPeak = peakSeason.includes(moment().format('YYYY-MM-DD'));
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
@@ -111,6 +111,8 @@ const App = () => {
       scheduleType = '土日祝日';
     } else if (isPeak) {
       scheduleType = '繁忙期_1';
+    } else if (isPrePost) {
+      scheduleType = '繁忙期_2';
     }
 
     // ダイヤのスケジュールを取得
@@ -133,19 +135,19 @@ const App = () => {
   return (
   <SafeAreaView style={styles.safeArea}>
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.currentTime}>現在時刻: {currentTime}</Text>
-      <Text style={styles.currentTime}>{'\n'}鹿児島港</Text>
-      <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
-        <View style={[styles.column, styles.leftColumn]}>
-          <Text style={styles.nextDeparture}>次発: {nextNextDepartureKagoshima}</Text>
-        </View>
-
-      <Text style={styles.currentTime}>{'\n'}桜島港</Text>
-      <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
-        <View style={[styles.column, styles.leftColumn]}>
-          <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
-        </View>
-        
+      <Text style={styles.currentTime}>現在: {currentTime}</Text>
+      
+      <View style={styles.kagoFrame}>
+        <Text style={[styles.portTitle, styles.bottomColumn]}>鹿児島港</Text>
+        <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
+        <Text style={styles.nextDeparture}>次発: {nextNextDepartureKagoshima}</Text>
+      </View>
+      
+      <View style={styles.sakuraFrame}>
+        <Text style={[styles.portTitle, styles.bottomColumn]}>桜島港</Text>
+        <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
+        <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
+      </View>
         <TouchableOpacity onPress={() => openLink(url_02)} style={styles.linkButtonTop}>
           <Image
             source={require('./assets/GENTOO_PENGUIN_SAKURAJIMA_WORKSHOP.png')} // 画像ファイルのパスを指定
@@ -164,7 +166,7 @@ const App = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    //paddingTop: Platform.OS === 'android' ? 50 : 0, // Androidの場合、セーフエリアに対応するために25ポイント追加
+    paddingTop: Platform.OS === 'android' ? 10 : 0, // Androidの場合、セーフエリアに対応するために25ポイント追加
   },
   container: {
     flexGrow: 1,
@@ -177,19 +179,55 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   currentTime: {
-    fontSize: 20,
+    fontSize: 24,
     marginBottom: 10,
+    fontWeight: 'bold',
+  },
+    portTitle: {
+    fontSize: 24,
+    marginTop: 0,
+    marginBottom: 15,
+    fontWeight: 'bold',
+  },
+  kagoFrame:{
+    marginTop: 10,
+    backgroundColor: '#EBEBEB',
+    borderWidth: 1,
+    borderColor: '#5F3770',
+    padding: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  sakuraFrame:{
+    marginTop: 10,
+    backgroundColor: '#FCDCE0',
+    borderWidth: 1,
+    borderColor: '#C87D99',
+    padding: 20,
+    borderRadius: 5,
+    alignItems: 'center',
   },
   nextDeparture: {
     fontSize: 24,
     fontWeight: 'bold',
   },
-  leftColumn: {
+  headLineNews:{
+    marginTop: 50,
+    marginBottom: 0,
+    borderWidth: 1,
+    borderColor: '#1C1C1C',
+    margin: 'auto',
+    width: 300,
+    height: 30,
+    borderRadius: 255,
+    alignItems: 'center',
+  },
+  bottomColumn: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
   linkButtonText: {
-    backgroundColor: '#CFCFCF',
+    backgroundColor: '#EBEBEB',
     padding: 20,
     borderRadius: 5,
     fontSize: 16,

@@ -21,6 +21,7 @@
     "android": {
       "versionCode": 7,
       "adaptiveIcon": {
+        "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/next.png",
         "backgroundColor": "#ffffff"
       },

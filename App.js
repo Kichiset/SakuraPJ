@@ -27,19 +27,19 @@ import ferryTimetable from './timeTable.json';
 // 出発時刻の探索関数 (先発と次発を探す)
 const getNextDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
-  let nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  return nextDepartureTime || schedule[0];
+  const nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
+  return nextDepartureTime || schedule[0]; // 最終便が終わった場合は翌日の最初の便を表示
 };
 
-const getNextNextDeparture = (schedule, currentTime) => {
+// 次の次の出発時刻を探す関数
+const getFollowingDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
   const nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  let   nextNextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > moment(nextDepartureTime, 'HH:mm'));
-  //console.log('12:34');
-  return nextNextDepartureTime || schedule[1];
+  const followingDepartureTime  = schedule.find(time => moment(time, 'HH:mm') > moment(nextDepartureTime, 'HH:mm'));
+  return followingDepartureTime  || schedule[1]; // 最終便が終わった場合は翌日の2番目の便を表示
 };
 
-// 現在時刻を基準に,時刻表を並べる関数
+// 時刻表を現在時刻を基準に並び替える関数
 const sortSchedule = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
   const todaySchedule = schedule.filter(time => moment(time, 'HH:mm') >= currentMoment);
@@ -53,8 +53,8 @@ const App = () => {
   const [currentTime, setCurrentTime] = useState('');
   const [nextDepartureSakurajima, setNextDepartureSakurajima] = useState('');
   const [nextDepartureKagoshima, setNextDepartureKagoshima] = useState('');
-  const [nextNextDepartureSakurajima, setNextNextDepartureSakurajima] = useState('');
-  const [nextNextDepartureKagoshima, setNextNextDepartureKagoshima] = useState('');
+  const [followingDepartureSakurajima, setFollowingDepartureSakurajima] = useState('');
+  const [followingDepartureKagoshima, setFollowingDepartureKagoshima] = useState('');
   const [holidaysData, setHolidaysData] = useState({});
 
   // 現在時刻を1秒ごとに更新するタイマーを設定する
@@ -119,20 +119,29 @@ const App = () => {
     const sakurajimaSchedule = ferryTimetable["桜島港"][scheduleType];
     const kagoshimaSchedule = ferryTimetable["鹿児島港"][scheduleType];
 
-    //
+    // 時刻表を現在時刻を基準に並び替える
     const sortedSakurajimaSchedule = sortSchedule(sakurajimaSchedule, currentTime);
     const sortedKagoshimaSchedule = sortSchedule(kagoshimaSchedule, currentTime);
+    
+    // 先発と次発の出発時刻を取得
     const nextDepartureSakurajima = getNextDeparture(sortedSakurajimaSchedule, currentTime);
     const nextDepartureKagoshima = getNextDeparture(sortedKagoshimaSchedule, currentTime);
-    const nextNextDepartureSakurajima = getNextNextDeparture(sortedSakurajimaSchedule, currentTime);
-    const nextNextDepartureKagoshima = getNextNextDeparture(sortedKagoshimaSchedule, currentTime);
+    
+    // 次の次の出発時刻を取得
+    const followingDepartureSakurajima = getFollowingDeparture(sortedSakurajimaSchedule, currentTime);
+    const followingDepartureKagoshima = getFollowingDeparture(sortedKagoshimaSchedule, currentTime);
+    
+    // 状態変数を更新する
     setNextDepartureSakurajima(nextDepartureSakurajima);
     setNextDepartureKagoshima(nextDepartureKagoshima);
-    setNextNextDepartureSakurajima(nextNextDepartureSakurajima);
-    setNextNextDepartureKagoshima(nextNextDepartureKagoshima);
+    setFollowingDepartureSakurajima(followingDepartureSakurajima);
+    setFollowingDepartureKagoshima(followingDepartureKagoshima);
   }, [currentTime, holidaysData]);
 
   return (
+  
+  
+  
   <SafeAreaView style={styles.safeArea}>
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
@@ -140,13 +149,13 @@ const App = () => {
       <View style={styles.kagoFrame}>
         <Text style={[styles.portTitle, styles.bottomColumn]}>鹿児島港</Text>
         <Text style={styles.nextDeparture}>先発: {nextDepartureKagoshima}</Text>
-        <Text style={styles.nextDeparture}>次発: {nextNextDepartureKagoshima}</Text>
+        <Text style={styles.nextDeparture}>次発: {followingDepartureKagoshima}</Text>
       </View>
       
       <View style={styles.sakuraFrame}>
         <Text style={[styles.portTitle, styles.bottomColumn]}>桜島港</Text>
         <Text style={styles.nextDeparture}>先発: {nextDepartureSakurajima}</Text>
-        <Text style={styles.nextDeparture}>次発: {nextNextDepartureSakurajima}</Text>
+        <Text style={styles.nextDeparture}>次発: {followingDepartureSakurajima}</Text>
       </View>
         <TouchableOpacity onPress={() => openLink(url_02)} style={styles.linkButtonTop}>
           <Image

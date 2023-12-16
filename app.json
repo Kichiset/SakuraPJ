@@ -2,7 +2,7 @@
   "expo": {
     "name": "SakuraFerry01",
     "slug": "SakuraFerry01",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "orientation": "portrait",
     "icon": "./assets/next.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.kichiset.SakuraFerry01"
     },
     "android": {
-      "versionCode": 14,
+      "versionCode": 15,
       "adaptiveIcon": {
         "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/icon.png",

@@ -4,8 +4,7 @@ import axios from 'axios';
 export const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? 0 : 0, // Androidの場合、セーフエリアに対応するために25ポイント追加
-    backgroundColor: '#444654',
+    backgroundColor: '#D4ECEE',
   },
   container: {
     flexGrow: 1,
@@ -19,19 +18,35 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  DepartPortTitle: {
+    fontSize: 30,
+    marginTop: 10,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
   currentTime: {
     fontSize: 24,
     marginTop: 10,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  current4DepartureTime: {
+    fontSize: 30,
+    marginTop: 0,
     marginBottom: 10,
     fontWeight: 'bold',
     alignItems: 'center',
   },
     portTitle: {
     fontSize: 24,
-    marginTop: 0,
-    marginBottom: 15,
+    marginTop: 10,
+    marginBottom: 5,
     fontWeight: 'bold',
     alignItems: 'center',
+    textAlign: 'center',
   },
   kagoFrame:{
     marginTop: 10,
@@ -42,7 +57,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     margin: 'auto',
-    width: 200,
+    width: 210,
   },
   sakuraFrame:{
     marginTop: 10,
@@ -53,7 +68,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     margin: 'auto',
-    width: 200,
+    width: 210,
   },
   nextDeparture: {
     fontSize: 24,
@@ -74,6 +89,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  shareLink:{
+    marginTop: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    backgroundColor: '#FFFFFF',
+    margin: 'auto',
+    width: 200,
+    height: 60,
+    borderRadius: 255,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   centerColumn: {
     marginTop: 10,
     borderBottomWidth: 1,
@@ -83,11 +110,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
-    buttonContainer: {
-    flexDirection: 'row', // 横方向に並べる
-    marginTop: 20,
+  notificationColumn: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
   button: {
+    backgroundColor: '#EBEBEB', //白藍
+    borderWidth: 1,
     padding: 10,
     borderRadius: 8,
   },
@@ -100,6 +129,38 @@ export const styles = StyleSheet.create({
     margin: 'auto',
     width: 200,
   },
+  ResetButton: {
+    backgroundColor: '#ECC521',
+    borderWidth: 2,
+    borderColor: '#B92021', //かごんまの色（）
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 'auto',
+    width: 100,
+    height: 50,
+    borderRadius: 100,
+  },
+  backButton: {
+    backgroundColor: '#EBEBEB', //白藍
+    borderWidth: 1,
+    marginTop: 20,
+    alignItems: 'center',
+    margin: 'auto',
+    width: 200,
+  },
+  buttonContainer: {
+    flexDirection: 'row', // ボタンを横並びに配置
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    margin: 'auto',
+  },
+  noticeColumn: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    marginBottom : 5,
+  },
   sakuraButton: {
     backgroundColor: '#FCDCE0',
     borderWidth: 1,
@@ -107,7 +168,7 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     alignItems: 'center',
     margin: 'auto',
-    width: 200,
+    width: 180,
   },
   kagoButton: {
     backgroundColor: '#EBEBEB',
@@ -116,12 +177,20 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     alignItems: 'center',
     margin: 'auto',
-    width: 200,
+    width: 180,
   },
   buttonText: {
     color: '#1C1C1C',
     fontSize: 16,
     fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  explainText: {
+    color: '#1C1C1C',
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    alignItems: 'center',
   },
   linkButtonText: {
     backgroundColor: '#EBEBEB',
@@ -143,6 +212,38 @@ export const styles = StyleSheet.create({
     height: 60,
     borderRadius: 5,
   },
+  seletKagoTopButton: {
+    backgroundColor: '#EBEBEB', //白藍
+    borderWidth: 1,
+    marginTop: 0,
+    alignItems: 'center',
+    margin: 'auto',
+    width: 180,
+  },
+  seletSakuTopButton: {
+    backgroundColor: '#FCDCE0', //白藍
+    borderWidth: 1,
+    marginTop: 0,
+    alignItems: 'center',
+    margin: 'auto',
+    width: 180,
+  },
+    seletKagoButton: {
+    backgroundColor: '#EBEBEB', //白藍
+    borderWidth: 1,
+    marginTop: 5,
+    alignItems: 'center',
+    margin: 'auto',
+    width: 180,
+  },
+    seletSakuButton: {
+    backgroundColor: '#FCDCE0',
+    borderWidth: 1,
+    marginTop: 5,
+    alignItems: 'center',
+    margin: 'auto',
+    width: 180,
+  },
     adBanner: {
     marginTop: 20,
     width: '100%',
@@ -156,4 +257,7 @@ export const styles = StyleSheet.create({
     height: '90%',
     resizeMode: 'contain',
   },
+  bannerDescription:{
+      color:'#DFAF89'
+  }
 });

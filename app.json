@@ -23,7 +23,12 @@
       "adaptiveIcon": {
         "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#D4ECEE"
+        "backgroundColor": "#D4ECEE",
+        "androidStatusBarColor": "#334393",
+        "androidStatusBar": {
+          "barStyle": "light-content",
+          "backgroundColor": "#334393"
+          }
       },
       "package": "com.kichiset.SakuraFerry01"
     },

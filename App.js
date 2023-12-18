@@ -9,6 +9,9 @@ import KagoshimaDepartureScreen from './screens/KagoshimaDepartureScreen';
 import SakurajimaDepartureScreen from './screens/SakurajimaDepartureScreen';
 import Notification from './screens/Notification';
 
+//import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+
 const Stack = createNativeStackNavigator();
 
 
@@ -18,6 +21,8 @@ export default function App() {
   })
 
   return (
+  
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainScreen">
         <Stack.Screen name="メイン画面" component={MainScreen} />

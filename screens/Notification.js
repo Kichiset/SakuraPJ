@@ -67,7 +67,7 @@ return(timer)
 }
 
 //文字列の表示系
-let [message, setMessage] = useState("通知しません")
+let [message, setMessage] = useState("選択してください。")
 const getMessage = () => {
   if(counter == 0){
     message = "通知しません"
@@ -109,7 +109,7 @@ const scheduleNotificationAsync = async (setTempDept) => {
 
 
 
-  const [choosenLabel, setChoosenLabel] = useState('0分前');
+  const [choosenLabel, setChoosenLabel] = useState([0]);
   const [choosenIndex, setChoosenIndex] = useState([0]);
 
 
@@ -127,12 +127,13 @@ const scheduleNotificationAsync = async (setTempDept) => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.current4DepartureTime}>現在: {currentTime}</Text>
 
-        <Text style={[styles.portTitle, styles.bottomColumn]}>{NextDept}  {Port}</Text>
+
         
       {/* ここから、タイマー制御 */}
       <Text style={styles.buttonText}>▼</Text>
-      <Text style={styles.buttonText}>出航の何分前にお知らせしますか？</Text>
 
+      <Text style={styles.buttonText}>出航の何分前に通知しますか？</Text>
+      
       <View>
         {/*Picker with multiple chose to choose*/}
         {/*selectedValue to set the preselected value if any*/}
@@ -144,7 +145,7 @@ const scheduleNotificationAsync = async (setTempDept) => {
             setChoosenLabel(itemValue);
             setChoosenIndex(itemIndex);
           }}>
-          <Picker.Item label="通知しません" value="" />
+          <Picker.Item label="通知しません" value="0" />
           <Picker.Item label="10分前" value="10" />
           <Picker.Item label="15分前" value="15" />
           <Picker.Item label="20分前" value="20" />
@@ -154,20 +155,8 @@ const scheduleNotificationAsync = async (setTempDept) => {
         </Picker>
         </View>
 
-      <View>
-        <Text style={styles.portTitle}>{message}</Text>
-      </View>
 
-
-
-
-
-
-
-
-
-
-
+      <Text style={styles.buttonText}>▼</Text>
 
         {/* セットボタン */}
         <TouchableOpacity
@@ -175,6 +164,7 @@ const scheduleNotificationAsync = async (setTempDept) => {
           onPress={() =>
           {
             setCounter(counter = choosenLabel)
+            console.log(counter)
             setDeptTime = getDeptTime();
             setMessage(getMessage(message,counter));
             //console.log(message,setDeptTime)
@@ -184,6 +174,31 @@ const scheduleNotificationAsync = async (setTempDept) => {
         }>
           <Text style={[styles.buttonText, {color: '#EBEBEB'}]}>セット</Text>
         </TouchableOpacity>
+
+
+
+      <Text style={styles.buttonText}>{'\n'}▼</Text>
+
+
+
+
+
+      <View>
+        <Text style={styles.portTitle}>{message}</Text>
+      </View>
+
+
+
+      <Text style={styles.buttonText}>▼</Text>
+      <Text style={[styles.portTitle, styles.bottomColumn]}>{NextDept}  {Port}</Text>
+
+
+
+
+
+
+
+
         
 
       
@@ -197,6 +212,8 @@ const scheduleNotificationAsync = async (setTempDept) => {
           Notifications.cancelAllScheduledNotificationsAsync(); // リセットAPI
           //画面リロードを入れる
           //props.navigation.reset(); // リロード
+          setCounter(counter = 0);
+          setMessage(message = "通知しません");
           }
         
         }>

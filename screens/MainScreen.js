@@ -39,13 +39,13 @@ const openLink = (url) => {
   Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
 
-const peakSeason_prePost = ["2023-08-11", "2023-08-15"];
-const peakSeason = ["2023-08-12", "2023-08-13", "2023-08-14"];
+const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
+const peakSeason = ["2024-01-01","2024-01-02"];
 const tempSchedule=["2023-11-03","2023-11-04","2023-11-05","2023-11-11","2023-11-12","2023-12-03","2023-12-09","2023-12-10","2023-12-16","2023-12-17"];
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
 
-// 桜島港と鹿児島港の平日と土日祝日の出発時刻データ
+// 桜島港と鹿児島港の出発時刻データ
 import ferryTimetable from '../timeTable.json';
 
 // 出発時刻の探索関数 (先発と次発を探す)

@@ -60,9 +60,13 @@ setTempDept = moment(setTempDept).add(-9, 'h');
 
 {/*Notificaionに渡す残り時間の計算*/}
 const getDeptTime = () => {
-timer = (moment(setTempDept).add(-counter, 'm')-moment())/1000;
-//console.log(setTempDept, timer,counter,)
-//console.log({moment(dispTempDept).add(-counter, 'm').format('HH:mm')}にお知らせします)
+if(counter == 0){
+  timer = -1;
+  } else {
+  timer = (moment(setTempDept).add(-counter, 'm')-moment())/1000;
+  }
+console.log(setTempDept, timer + "秒後に通知",counter)
+console.log(moment(setTempDept).add(-counter, 'm').format('HH:mm') +"にお知らせします") //
 return(timer)
 }
 

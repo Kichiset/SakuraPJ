@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Button, Image, StyleSheet, SafeAreaView, ScrollView, Linking, Platform, Animated, StatusBar, Share
+  View, Text, TouchableOpacity, Button, Image, StyleSheet, SafeAreaView, StatusBar, ScrollView, Linking, Platform, Animated, Share
 } from 'react-native';
 
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
@@ -39,30 +39,25 @@ const openLink = (url) => {
   Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
 
-const peakSeason_prePost = ["2023-08-11", "2023-08-15"];
-const peakSeason = ["2023-08-12", "2023-08-13", "2023-08-14"];
+const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
+const peakSeason = ["2024-01-01","2024-01-02"];
 const tempSchedule=["2023-11-03","2023-11-04","2023-11-05","2023-11-11","2023-11-12","2023-12-03","2023-12-09","2023-12-10","2023-12-16","2023-12-17"];
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
 
-// 桜島港と鹿児島港の平日と土日祝日の出発時刻データ
+// 桜島港と鹿児島港の出発時刻データ
 import ferryTimetable from '../timeTable.json';
 
 // 出発時刻の探索関数 (先発と次発を探す)
-const getNextDeparture = (schedule, currentTime) => {
+  const getNextDeparture = (schedule, currentTime) => {
   const currentMoment = moment(currentTime, 'HH:mm');
-  const nextDepartureTime = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  const nextDeptIndex = schedule.findIndex(time => moment(time, 'HH:mm') > currentMoment);
-  
-  //const result [id, index] = schedule.find(time => moment(time, 'HH:mm') > currentMoment);
-  
   
   return schedule; // 最終便が終わった場合は翌日の最初の便を表示
 };
 
 // 時刻表を現在時刻を基準に並び替える関数
 const sortSchedule = (schedule, currentTime) => {
-  const currentMoment = moment(currentTime, 'HH:mm');
+  const currentMoment = moment(currentTime, 'HH:mm').add(1, 'm');  //////クソ怪しい処理をしているのでしばらく様子見
   const todaySchedule = schedule.filter(time => moment(time, 'HH:mm') >= currentMoment);
   const nextDaySchedule = schedule.filter(time => moment(time, 'HH:mm') < currentMoment);
 
@@ -77,7 +72,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   const [holidaysData, setHolidaysData] = useState({});
   const [headline, setHeadline] = useState({});
 
-  // 現在時刻を1秒ごとに更新するタイマーを設定する
+  // 現在時刻を0.1秒ごとに更新するタイマーを設定する
   useEffect(() => {
     const getCurrentTime = () => {
       const now = moment().format('HH:mm:ss');
@@ -88,7 +83,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 
     const timer = setInterval(() => {
       getCurrentTime();
-    }, 1000);
+    }, 100);
 
     // タイマーをクリーンアップする
     return () => {
@@ -134,7 +129,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       }
     };
 
-    // 起動時に一度だけAPIリクエストを行う
+    // 起動時に一度、APIリクエストを行う
     fetchData();
 
     // 6時間ごとにAPIリクエストを行うタイマーを設定
@@ -170,14 +165,13 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     let scheduleType = '平日';
     if (isTemp) {
       scheduleType = '平日';
-    } else if (isHoliday||isWeekEnd) {
-      scheduleType = '土日祝日';
-    } else if (isPeak) {
-      scheduleType = '繁忙期_1';
     } else if (isPrePost) {
+      scheduleType = '繁忙期_1';
+    } else if (isPeak) {
       scheduleType = '繁忙期_2';
-    }
-
+    }else if (isHoliday||isWeekEnd) {
+      scheduleType = '土日祝日';
+    } 
     // ダイヤのスケジュールを取得
     const sakurajimaSchedule = ferryTimetable["桜島港"][scheduleType];
     const kagoshimaSchedule = ferryTimetable["鹿児島港"][scheduleType];
@@ -189,7 +183,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     // 先発と次発の出発時刻を取得
     const nextDepartureSakurajima = getNextDeparture(sortedSakurajimaSchedule, currentTime);
     const nextDepartureKagoshima = getNextDeparture(sortedKagoshimaSchedule, currentTime);
-
     
     // 状態変数を更新する
     setNextDepartureSakurajima(nextDepartureSakurajima);
@@ -252,7 +245,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       const result = await Share.share({
         title: 'タイトル',
         message:
-          'EasyBoardSakurajimaFerrya, The Applicatiom of Timeschedule for Sakurajima Ferry.\n Android: https://play.google.com/store/apps/details?id=com.kichiset.EasyBoardSakurajimaFerry&pcampaignid=web_share \n IOS: https://apps.apple.com/us/app/easy-board-sakurajima-ferry/id6468773953',
+          '先発次発という桜島フェリーに乗るときに便利なアプリ。\n Android: https://play.google.com/store/apps/details?id=com.kichiset.EasyBoardSakurajimaFerry&pcampaignid=web_share \n IOS: https://apps.apple.com/us/app/easy-board-sakurajima-ferry/id6468773953',
         
       });
       if (result.action === Share.sharedAction) {
@@ -273,7 +266,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 
   return (
   <SafeAreaView style={styles.safeArea}>
-    
+    <StatusBar style="auto" />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
       
@@ -301,7 +294,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
           Dept = nextDepartureSakurajima
           setPort = SakuPort
           Port = GetPort(setPort)
-          console.log(Port, nextDepartureSakurajima[0])
           props.navigation.navigate('桜島港発',nextDepartureSakurajima,Port); // 遷移先の画面名を指定
         }
         }
@@ -328,7 +320,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 		<Text >▲買って・読んで桜島を応援してください▲</Text>
 
             
-        <TouchableOpacity onPress={() => openLink(bannerUrls[currentBannerIndex])} style={styles.linkButtonTop}>
+        <TouchableOpacity onPress={() => openLink(bannerUrls[currentBannerIndex])} style={styles.linkButton}>
           <Image
             source={bannerImages[currentBannerIndex]} // 画像ファイルのパスを指定
             style={styles.linkButtonImage}
@@ -340,7 +332,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
         onPress={onShare}
       >
       <View style={styles.shareLink}>
-        <Text>便利だと思ったら{"\n"}シェアをお願いします</Text>
+        <Text>便利だと思ったら</Text><Text>シェアをお願いします</Text>
       </View>
       </TouchableOpacity> 
 

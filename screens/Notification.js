@@ -3,6 +3,8 @@ import {
   View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking, Animated, StatusBar, Button, Vibration, BackHandler,
 } from 'react-native';
 import Constants from 'expo-constants';
+import {Picker} from '@react-native-picker/picker'
+
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
@@ -57,10 +59,35 @@ setTempDept = moment(setTempDept).add(-9, 'h');
 
 {/*Notificaionに渡す残り時間の計算*/}
 const getDeptTime = () => {
-timer = (moment(setTempDept).add(-counter, 'm')-moment())/1000;
-console.log(setTempDept, timer,counter)
+if(counter == 0){
+  timer = -1;
+  } else {
+  timer = (moment(setTempDept).add(-counter, 'm')-moment())/1000;
+  }
+console.log(setTempDept, timer + "秒後に通知",counter)
+console.log(moment(setTempDept).add(-counter, 'm').format('HH:mm') +"にお知らせします") //
 return(timer)
 }
+
+//文字列の表示系
+let [message, setMessage] = useState("選択してください。")
+const getMessage = () => {
+  if(counter == 0){
+    message = "通知しません"
+  } else if (setDeptTime < 0){
+    message = "予定時刻を過ぎています!!"
+  } else {
+    message = moment(dispTempDept).add(-counter, 'm').format('HH:mm') +"にお知らせします"
+  }
+  //console.log(message,counter,NextDept,moment(dispTempDept).add(-counter, 'm').format('HH:mm'))
+  return (message)
+}
+
+
+
+
+
+
 
 {/*Notificaion本体。メッセージ出したり、タイミング調整したり*/}
 const scheduleNotificationAsync = async (setTempDept) => {
@@ -78,97 +105,107 @@ const scheduleNotificationAsync = async (setTempDept) => {
   })
 }
 
+
+
+
+
+
+
+
+  const [choosenLabel, setChoosenLabel] = useState([0]);
+  const [choosenIndex, setChoosenIndex] = useState([0]);
+
+
+
+
+
+
+
+
+
+
 {/*ここからリターン文（ほとんど表示系）*/}
   return (
   <SafeAreaView style={styles.safeArea}>
+    <StatusBar style="auto" />
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.DepartPortTitle}>{Port}</Text>
       <Text style={styles.current4DepartureTime}>現在: {currentTime}</Text>
 
-        <Text style={[styles.portTitle, styles.bottomColumn]}>{NextDept}に出航</Text>
+
         
       {/* ここから、タイマー制御 */}
-      <Text style={styles.buttonText}>何分前にお知らせしますか？</Text>
+      <Text style={styles.buttonText}>▼</Text>
 
-      {/* ボタンを横に並べるためのコンテナ */}
-      <View style={"alignItems: 'center'"}>
-      <View style={styles.buttonContainer}>
-        
-        {/* ボタン10 */}
-        <TouchableOpacity onPress={() =>
+      <Text style={styles.buttonText}>出航の何分前に通知しますか？</Text>
+      
+      <View>
+        {/*Picker with multiple chose to choose*/}
+        {/*selectedValue to set the preselected value if any*/}
+        {/*onValueChange will help to handle the changes*/}
+        <Picker
+          style={[styles.wideButton, styles.picker]}
+          selectedValue={choosenLabel}
+          onValueChange={(itemValue, itemIndex) => {
+            setChoosenLabel(itemValue);
+            setChoosenIndex(itemIndex);
+          }}>
+          <Picker.Item label="通知しません" value="0" />
+          <Picker.Item label="10分前" value="10" />
+          <Picker.Item label="15分前" value="15" />
+          <Picker.Item label="20分前" value="20" />
+          <Picker.Item label="30分前" value="30" />
+          <Picker.Item label="45分前" value="45" />
+          <Picker.Item label="60分前" value="60" />
+        </Picker>
+        </View>
+
+
+      <Text style={styles.buttonText}>▼</Text>
+
+        {/* セットボタン */}
+        <TouchableOpacity
+          style={[styles.button, styles.SetButton]}
+          onPress={() =>
           {
-            setCounter(counter = 10)
+            setCounter(counter = choosenLabel)
+            console.log(counter)
             setDeptTime = getDeptTime();
-            console.log(setDeptTime)
+            setMessage(getMessage(message,counter));
+            //console.log(message,setDeptTime)
             Notifications.cancelAllScheduledNotificationsAsync();
             scheduleNotificationAsync(setDeptTime)
           }
         }>
-          <Text style={styles.button}>10</Text>
+          <Text style={[styles.buttonText, {color: '#EBEBEB'}]}>セット</Text>
         </TouchableOpacity>
-        
-        
-        {/* ボタン15 */}
-        <TouchableOpacity onPress={() =>
-          {
-            setCounter(counter = 15)
-            setDeptTime = getDeptTime();
-            console.log(setDeptTime)
-            Notifications.cancelAllScheduledNotificationsAsync();
-            scheduleNotificationAsync(setDeptTime)
-          }
-        }>
-          <Text style={styles.button}>15</Text>
-        </TouchableOpacity>
-        
-        
-        {/* ボタン30 */}
-        <TouchableOpacity onPress={() =>
-          {
-            setCounter(counter = 30)
-            setDeptTime = getDeptTime();
-            console.log(setDeptTime)
-            Notifications.cancelAllScheduledNotificationsAsync();
-            scheduleNotificationAsync(setDeptTime)
-          }
-        }>
-          <Text style={styles.button}>30</Text>
-        </TouchableOpacity>
-        
-        
-        {/* ボタン45 */}
-        <TouchableOpacity onPress={() =>
-          {
-            setCounter(counter = 45)
-            setDeptTime = getDeptTime();
-            console.log(setDeptTime)
-            Notifications.cancelAllScheduledNotificationsAsync();
-            scheduleNotificationAsync(setDeptTime)
-          }
-        }>
-          <Text style={styles.button}>45</Text>
-        </TouchableOpacity>
-        
-        
-        {/* ボタン60 */}
-        <TouchableOpacity onPress={() =>
-          {
-            setCounter(counter = 60)
-            setDeptTime = getDeptTime();
-            console.log(setDeptTime)
-            Notifications.cancelAllScheduledNotificationsAsync();
-            scheduleNotificationAsync(setDeptTime)
-          }
-        }>
-          <Text style={styles.button}>60</Text>
-        </TouchableOpacity>
-        
-      </View>
-      </View>
+
+
+
+      <Text style={styles.buttonText}>{'\n'}▼</Text>
+
+
+
+
 
       <View>
-        <Text style={styles.portTitle}>{moment(dispTempDept).add(-counter, 'm').format('HH:mm')}にお知らせします</Text>
+        <Text style={styles.portTitle}>{message}</Text>
       </View>
+
+
+
+      <Text style={styles.buttonText}>▼</Text>
+      <Text style={[styles.portTitle, styles.bottomColumn]}>{NextDept}  {Port}</Text>
+
+
+
+
+
+
+
+
+        
+
+      
       
       <View>
       {/* 全部リセットするボタン */}
@@ -177,6 +214,10 @@ const scheduleNotificationAsync = async (setTempDept) => {
         onPress={() => {
           setCounter(counter = 0)
           Notifications.cancelAllScheduledNotificationsAsync(); // リセットAPI
+          //画面リロードを入れる
+          //props.navigation.reset(); // リロード
+          setCounter(counter = 0);
+          setMessage(message = "通知しません");
           }
         
         }>

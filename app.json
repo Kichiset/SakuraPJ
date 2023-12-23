@@ -2,12 +2,12 @@
   "expo": {
     "name": "SakuraFerry01",
     "slug": "SakuraFerry01",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "orientation": "portrait",
     "icon": "./assets/next.png",
     "userInterfaceStyle": "light",
     "splash": {
-     // "image": "./assets/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.kichiset.SakuraFerry01"
     },
     "android": {
-      "versionCode": 15,
+      "versionCode": 16,
       "adaptiveIcon": {
         "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/icon.png",

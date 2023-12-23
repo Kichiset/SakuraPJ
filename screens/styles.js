@@ -129,6 +129,18 @@ export const styles = StyleSheet.create({
     margin: 'auto',
     width: 200,
   },
+  SetButton: {
+    backgroundColor: '#99CEF4',
+    borderWidth: 1,
+    borderColor: '#00A2C0', //かごんまの色（）
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 'auto',
+    width: 180,
+    height: 50,
+    borderRadius: 100,
+  },
   ResetButton: {
     backgroundColor: '#ECC521',
     borderWidth: 2,
@@ -137,7 +149,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 'auto',
-    width: 100,
+    width: 180,
     height: 50,
     borderRadius: 100,
   },
@@ -243,6 +255,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 'auto',
     width: 180,
+  },
+    wideButton: {
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: 200,
+  },
+  picker : {
+  transform: [
+     { scaleX: 1.3 }, 
+     { scaleY: 1.3 },
+  ]
   },
     adBanner: {
     marginTop: 20,

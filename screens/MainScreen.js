@@ -219,19 +219,15 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
    const [currentTextIndex, setCurrentTextIndex] = useState(0);
    const messageLength = Object.keys(headline).length;
    const maxMessageLength = 100;
-   //console.log(messageLength)
  
   const switchText = () => {
     setCurrentTextIndex(prevIndex => (prevIndex + 1) % maxMessageLength); //message.length);
   };
-    console.log(currentTextIndex)
   // テキスト広告の切り替えタイマー
   useEffect(() => {
     const textTimer = setInterval(switchText, 5 * 1000); // 5秒ごとに切り替え
     return () => clearInterval(textTimer); // クリーンアップ
   }, []);
-
-//console.log(headline, Object.keys(headline).length, messageLength)
 
 //const isAndroid = Platform.OS === 'android'
 
@@ -263,10 +259,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       Alert.alert(error.message);
     }
   };
-
-//console.log(HeadLine["News"])
-//console.log(headline[currentTextIndex], Object.keys(headline).length, currentTextIndex)
-
 
   return (
   <SafeAreaView style={styles.safeArea}>

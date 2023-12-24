@@ -1,6 +1,18 @@
 import React, { useEffect, useState, Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking, Animated, StatusBar, Button, 
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  ScrollView,
+  Linking,
+  Platform,
+  Animated,
+  Share
 } from 'react-native';
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
 

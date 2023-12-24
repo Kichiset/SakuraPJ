@@ -1,6 +1,18 @@
 import React, { useEffect, useState, Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Button, Image, StyleSheet, SafeAreaView, StatusBar, ScrollView, Linking, Platform, Animated, Share
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  ScrollView,
+  Linking,
+  Platform,
+  Animated,
+  Share
 } from 'react-native';
 
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
@@ -27,18 +39,6 @@ const bannerImages = [
   require('../assets/SAKURAJIMA_TSUBAKI.png'),
 ];
 
-//一行広告のメッセージ（外部リンクをするのは品がないのでやめましょう）
-let message = [
-           "【注意】今週末は平日ダイヤで運行します。",
-            "ランチは桜島港3F「MinatoCafe」でどうぞ。",
-            "▼フェリーの待ち時間などでお読みください▼",
-            "道の駅「桜島」の食堂は月曜日お休み",
-            "3/16(土)火山好きｻﾐｯﾄ@HUB雲仙&ｵﾝﾗｲﾝ参加者募集",];
-
-const openLink = (url) => {
-  Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
-};
-
 const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
 const peakSeason = ["2024-01-01","2024-01-02"];
 const tempSchedule=["2023-11-03","2023-11-04","2023-11-05","2023-11-11","2023-11-12","2023-12-03","2023-12-09","2023-12-10","2023-12-16","2023-12-17"];
@@ -62,6 +62,10 @@ const sortSchedule = (schedule, currentTime) => {
   const nextDaySchedule = schedule.filter(time => moment(time, 'HH:mm') < currentMoment);
 
   return [...todaySchedule, ...nextDaySchedule];
+};
+
+const openLink = (url) => {
+  Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
 
 const App = (props) => { // propsを引数として受け取る  // 状態変数の定義
@@ -118,7 +122,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   
   
   
-    // ヘッドラインニュースのAPIリクエストを設定する
+  // ヘッドラインニュースのAPIリクエストを設定する
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -128,26 +132,20 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
         console.error('Error fetching headline data:', error);
       }
     };
-
     // 起動時に一度、APIリクエストを行う
     fetchData();
 
-    // 6時間ごとにAPIリクエストを行うタイマーを設定
+    // 1分ごとにAPIリクエストを行うタイマーを設定
     const fetchHeadlineTimer = setInterval(() => {
       fetchData();
-    }, 10 * 1000); // 6時間
+    }, 15 * 1000);
 
     // タイマーをクリーンアップする
     return () => {
       clearInterval(fetchHeadlineTimer);
     };
   }, []);
-  
-  
-  
-  
-  
-  
+
   
   
   
@@ -215,21 +213,25 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     const bannerTimer = setInterval(switchBanner, 15 * 1000); // 15秒ごとに切り替え
     return () => clearInterval(bannerTimer); // クリーンアップ
   }, []);
-  
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-    // テキスト広告の切り替え関数
-  const switchText = () => {
-    setCurrentTextIndex(prevIndex => (prevIndex + 1) % message.length);
-  };
 
+
+  // テキスト広告の切り替え関数
+   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+   const messageLength = Object.keys(headline).length;
+   const maxMessageLength = 100;
+   //console.log(messageLength)
+ 
+  const switchText = () => {
+    setCurrentTextIndex(prevIndex => (prevIndex + 1) % maxMessageLength); //message.length);
+  };
+    console.log(currentTextIndex)
   // テキスト広告の切り替えタイマー
   useEffect(() => {
-    const textTimer = setInterval(switchText, 5000); // 5秒ごとに切り替え
+    const textTimer = setInterval(switchText, 5 * 1000); // 5秒ごとに切り替え
     return () => clearInterval(textTimer); // クリーンアップ
   }, []);
 
-
-
+//console.log(headline, Object.keys(headline).length, messageLength)
 
 //const isAndroid = Platform.OS === 'android'
 
@@ -263,6 +265,8 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   };
 
 //console.log(HeadLine["News"])
+//console.log(headline[currentTextIndex], Object.keys(headline).length, currentTextIndex)
+
 
   return (
   <SafeAreaView style={styles.safeArea}>
@@ -306,7 +310,8 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       </TouchableOpacity>
       
       <View style={styles.headLineNews}>
-        <Text>{message[currentTextIndex]}</Text>
+      <Text>{headline[currentTextIndex % messageLength +1]}</Text>
+      {/*}<Text>{headline[currentTextIndex]}</Text>*/}
       
       </View>
       

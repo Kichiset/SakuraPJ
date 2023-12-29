@@ -9,6 +9,19 @@ import KagoshimaDepartureScreen from './screens/KagoshimaDepartureScreen';
 import SakurajimaDepartureScreen from './screens/SakurajimaDepartureScreen';
 import Notification from './screens/Notification';
 
+import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__
+ ? TestIds.APP_OPEN
+ : 'ca-app-pub-3179323992080572/5698067704';
+
+const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing'],
+});
+
+// Preload an app open ad
+appOpenAd.load();
+
 const Stack = createNativeStackNavigator();
 
 
@@ -16,6 +29,9 @@ export default function App() {
   React.useEffect(() => {
     requestPermissionsAsync();
   })
+
+  // Preload an app open ad
+  appOpenAd.load();
 
   return (
     <NavigationContainer>

@@ -37,6 +37,9 @@ const bannerImages = [
   require('../assets/SAKURAJIMA_TSUBAKI.png'),
 ];
 
+// Admobバナー
+import { AdmobFullBanner } from "../Admob";
+
 //一行広告のメッセージ（外部リンクをするのは品がないのでやめましょう）
 //最大で12文字/sec
 const message = ["Tap the planning Ferry! The app notify you.", "Restaurant Sakurajima Close every Monday.", "▼Reccomended Textbook.▼", "▼Please read with waiting Ferry.▼"];
@@ -106,6 +109,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   
   <SafeAreaView style={styles.safeArea}>
     <StatusBar style="auto" />
+    <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
       

@@ -1,6 +1,18 @@
 import React, { useEffect, useState, Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, ScrollView, Linking, Animated, StatusBar, Button, Vibration, BackHandler,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Linking,
+  Animated,
+  StatusBar,
+  Button,
+  Vibration,
+  BackHandler,
 } from 'react-native';
 import Constants from 'expo-constants';
 import {Picker} from '@react-native-picker/picker'
@@ -11,6 +23,16 @@ import { styles } from './styles'; // 新しく作成したstyles.jsファイル
 
 import axios from 'axios';
 import moment from 'moment';
+
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+const adUnitId = __DEV__
+? TestIds.INTERSTITIAL 
+: 'ca-app-pub-3179323992080572/2091174818';
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing'],
+});
+
 
 const App = (props) => { // propsを引数として受け取る  // 状態変数の定義
   // 状態変数の定義
@@ -111,18 +133,39 @@ const scheduleNotificationAsync = async (setTempDept) => {
 
 
 
+// Firebase広告の表示系統
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+      setLoaded(true);
+    });
 
+    // Start loading the interstitial straight away
+    interstitial.load();
+    
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, []);
+
+  const [isLoadCalled, setIsLoadCalled] = useState(true);
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(AdEventType.OPENED, () => {
+      setIsLoadCalled(false);
+    });
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+    
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, []);
+
+
+console.log(loaded, isLoadCalled)
+
+// 選択した時刻とインデックスを保存
   const [choosenLabel, setChoosenLabel] = useState([0]);
   const [choosenIndex, setChoosenIndex] = useState([0]);
-
-
-
-
-
-
-
-
-
 
 {/*ここからリターン文（ほとんど表示系）*/}
   return (
@@ -171,9 +214,13 @@ const scheduleNotificationAsync = async (setTempDept) => {
             console.log(counter)
             setDeptTime = getDeptTime();
             setMessage(getMessage(message,counter));
-            //console.log(message,setDeptTime)
+            // No advert ready to show yet
+            if (loaded && isLoadCalled) {
+              interstitial.show();
+            }
             Notifications.cancelAllScheduledNotificationsAsync();
             scheduleNotificationAsync(setDeptTime)
+            // 
           }
         }>
           <Text style={[styles.buttonText, {color: '#EBEBEB'}]}>セット</Text>
@@ -181,8 +228,8 @@ const scheduleNotificationAsync = async (setTempDept) => {
 
 
 
+      <Text>{"広告が表示されます"}</Text>
       <Text style={styles.buttonText}>{'\n'}▼</Text>
-
 
 
 

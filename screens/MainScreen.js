@@ -20,6 +20,16 @@ import { styles } from './styles'; // 新しく作成したstyles.jsファイル
 import axios from 'axios';
 import moment from 'moment';
 
+import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__
+ ? TestIds.APP_OPEN
+ : 'ca-app-pub-3179323992080572/5698067704';
+
+const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing'],
+});
+
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
 const Headline_URL = 'https://raw.githubusercontent.com/Kichiset/SakuraPJ/main/headlineMessage.json';
 const main_url = 'https://www.amazon.co.jp/dp/B0CH51LQMG';
@@ -32,12 +42,14 @@ const bannerUrls = [
   'http://www.sakurajima.gr.jp/svc/topics/post-340.html',
 ];
 
-
 // バナー広告用の画像リンク
 const bannerImages = [
   require('../assets/GENTOO_PENGUIN_SAKURAJIMA_WORKSHOP.png'),
   require('../assets/SAKURAJIMA_TSUBAKI.png'),
 ];
+
+// Admobバナー
+import { AdmobFullBanner } from "../Admob";
 
 const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
 const peakSeason = ["2024-01-01","2024-01-02"];
@@ -235,7 +247,8 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   const iosURL = 'https://apps.apple.com/us/app/easy-board-sakurajima-ferry/id6468773953';
   const AndroidURL = 'https://play.google.com/store/apps/details?id=com.kichiset.EasyBoardSakurajimaFerry&pcampaignid=web_share'
 
-
+  // Preload an app open ad
+  appOpenAd.load();
 
 
   const onShare = async () => {
@@ -263,6 +276,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   return (
   <SafeAreaView style={styles.safeArea}>
     <StatusBar style="auto" />
+    <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
       
@@ -323,7 +337,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
             style={styles.linkButtonImage}
           />
         </TouchableOpacity>
-        
       
       <TouchableOpacity
         onPress={onShare}
@@ -332,7 +345,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
         <Text>便利だと思ったら</Text><Text>シェアをお願いします</Text>
       </View>
       </TouchableOpacity> 
-
     </ScrollView>
   </SafeAreaView>
   );

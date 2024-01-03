@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "SakuraFerry01",
+    "slug": "SakuraFerry01",
+    "version": "1.3.0",
+    "orientation": "portrait",
+    "icon": "./assets/next.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kichiset.SakuraFerry01"
+    },
+    "android": {
+      "versionCode": 16,
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/splash.png",
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#D4ECEE"
+      },
+      "package": "com.kichiset.SakuraFerry01"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "adfc8ffb-522f-402a-96b1-0c7e740ba2cf"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/adfc8ffb-522f-402a-96b1-0c7e740ba2cf"
+    }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3179323992080572~2088979851",
+    "ios_app_id": "ca-app-pub-3179323992080572~9840257619",
+    "delay_app_measurement_init": true,
+    "user_tracking_usage_description": "許可することで、より関連性の高い広告を表示することができるようになります。"
+  }
+}

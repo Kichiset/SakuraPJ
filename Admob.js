@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-native";
+import {
+  Platform,
+  Button,
+} from "react-native";
+
 import mobileAds ,{
   BannerAd,
   BannerAdSize,
@@ -9,15 +13,17 @@ import mobileAds ,{
   AdEventType,
 }from "react-native-google-mobile-ads";
 
+const isAndroid = Platform.OS == 'android';
+
 // 初期化
 mobileAds()
   .initialize()
   .then((adapterStatuses) => {});
 
 // ユニットID
-const adBannerUnitId = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-3179323992080572/4026178794";
+const adBannerUnitId = isAndroid
+  ? "ca-app-pub-3179323992080572/4026178794"
+  : "ca-app-pub-3179323992080572/5642253032";
 
 export function AdmobFullBanner() {
   return (
@@ -31,9 +37,9 @@ export function AdmobFullBanner() {
   );
 }
 
-const adInterUnitId = __DEV__
- ? TestIds.INTERSTITIAL
- : 'ca-app-pub-3179323992080572/2091174818';
+const adInterUnitId = isAndroid
+ ? 'ca-app-pub-3179323992080572/2091174818'
+ : 'ca-app-pub-3179323992080572/9648166408';
 
 const interstitial = InterstitialAd.createForAdRequest(adInterUnitId, {
   keywords: ['fashion', 'clothing'],

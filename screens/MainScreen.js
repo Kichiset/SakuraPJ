@@ -22,9 +22,12 @@ import moment from 'moment';
 
 import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__
- ? TestIds.APP_OPEN
- : 'ca-app-pub-3179323992080572/5698067704';
+const isAndroid = Platform.OS == 'android';
+console.log(isAndroid, Platform.OS)
+
+const adUnitId = isAndroid
+ ? 'ca-app-pub-3179323992080572/5698067704'
+ : 'ca-app-pub-3179323992080572/9648166408';
 
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],

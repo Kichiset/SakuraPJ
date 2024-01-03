@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Button,Vibration, } from 'react-native';
+import { StyleSheet, View, Button,Vibration, Platform,} from 'react-native';
 import * as Notifications from 'expo-notifications';
 
 import MainScreen from './screens/MainScreen';
@@ -10,10 +10,15 @@ import SakurajimaDepartureScreen from './screens/SakurajimaDepartureScreen';
 import Notification from './screens/Notification';
 
 import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+//import { AdMobBanner } from 'expo-ads-admob';
 
-const adUnitId = __DEV__
- ? TestIds.APP_OPEN
- : 'ca-app-pub-3179323992080572/5698067704';
+
+const isAndroid = Platform.OS == 'android';
+console.log(isAndroid, Platform.OS)
+
+const adUnitId = isAndroid
+ ? 'ca-app-pub-3179323992080572/5698067704'
+ : 'ca-app-pub-3179323992080572/9648166408';
 
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],

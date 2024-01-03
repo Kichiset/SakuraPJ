@@ -13,6 +13,7 @@ import {
   Button,
   Vibration,
   BackHandler,
+  Platform,
 } from 'react-native';
 import Constants from 'expo-constants';
 import {Picker} from '@react-native-picker/picker'
@@ -25,9 +26,14 @@ import axios from 'axios';
 import moment from 'moment';
 
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-const adUnitId = __DEV__
-? TestIds.INTERSTITIAL 
-: 'ca-app-pub-3179323992080572/2091174818';
+
+const isAndroid = Platform.OS == 'android';
+
+console.log(isAndroid)
+
+const adUnitId = isAndroid
+? 'ca-app-pub-3179323992080572/2091174818'
+: 'ca-app-pub-3179323992080572/6064144618';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],
@@ -134,34 +140,40 @@ const scheduleNotificationAsync = async (setTempDept) => {
 
 
 // Firebase広告の表示系統
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-      setLoaded(true);
-    });
+const [loaded, setLoaded] = useState(false);
+useEffect(() => {
+  const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+    setLoaded(true);
+  });
+  // Start loading the interstitial straight away
+  interstitial.load();    
+  // Unsubscribe from events on unmount
+  return unsubscribe;
+}, []);
+const [closed, setClosed] = useState(false);
+useEffect(() => {
+  const unsubscribe = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+    setClosed(true);
+  });
+  // Start loading the interstitial straight away
+  interstitial.load();    
+  // Unsubscribe from events on unmount
+  return unsubscribe;
+}, []);
+const [err, setERR] = useState(false);
+useEffect(() => {
+  const unsubscribe = interstitial.addAdEventListener(AdEventType.ERROR, () => {
+    setERR(true);
+  });
+  // Start loading the interstitial straight away
+  interstitial.load();    
+  // Unsubscribe from events on unmount
+  return unsubscribe;
+}, []);
 
-    // Start loading the interstitial straight away
-    interstitial.load();
-    
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, []);
-
-  const [isLoadCalled, setIsLoadCalled] = useState(true);
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(AdEventType.OPENED, () => {
-      setIsLoadCalled(false);
-    });
-
-    // Start loading the interstitial straight away
-    interstitial.load();
-    
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, []);
 
 
-console.log(loaded, isLoadCalled)
+console.log(loaded,closed,err)
 
 // 選択した時刻とインデックスを保存
   const [choosenLabel, setChoosenLabel] = useState([0]);
@@ -215,7 +227,7 @@ console.log(loaded, isLoadCalled)
             setDeptTime = getDeptTime();
             setMessage(getMessage(message,counter));
             // No advert ready to show yet
-            if (loaded && isLoadCalled) {
+            if(loaded && !closed){
               interstitial.show();
             }
             Notifications.cancelAllScheduledNotificationsAsync();

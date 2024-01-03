@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.kichiset.SakuraFerry01"
     },
     "android": {
-      "versionCode": 16,
+      "versionCode": 20,
       "adaptiveIcon": {
         "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/icon.png",

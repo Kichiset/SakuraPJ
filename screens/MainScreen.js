@@ -247,8 +247,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 //const isAndroid = Platform.OS === 'android'
 
 
-  const iosURL = 'https://apps.apple.com/us/app/easy-board-sakurajima-ferry/id6468773953';
-  const AndroidURL = 'https://play.google.com/store/apps/details?id=com.kichiset.EasyBoardSakurajimaFerry&pcampaignid=web_share'
 
   // Preload an app open ad
   appOpenAd.load();
@@ -259,7 +257,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       const result = await Share.share({
         title: 'タイトル',
         message:
-          '先発次発という桜島フェリーに乗るときに便利なアプリ。\n Android: https://play.google.com/store/apps/details?id=com.kichiset.EasyBoardSakurajimaFerry&pcampaignid=web_share \n IOS: https://apps.apple.com/us/app/easy-board-sakurajima-ferry/id6468773953',
+          '先発次発という桜島フェリーに乗るときに便利なアプリ。\n Android: https://play.google.com/store/apps/details?id=com.kichiset.SakuraFerry01&pcampaignid=web_share \n IOS: https://apps.apple.com/jp/app/%E6%A1%9C%E5%B3%B6%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC-%E5%85%88%E7%99%BA%E6%AC%A1%E7%99%BA-%E6%99%82%E5%88%BB%E8%A1%A8/id6465898880',
         
       });
       if (result.action === Share.sharedAction) {

@@ -9,6 +9,7 @@ This Privacy Policy explains how [SakuraFerry] (hereinafter referred to as "the 
     Use of Collected Information
         The App uses the collected information for the following purposes:
             Displaying and updating the schedule.
+            Personalised advertising and content, advertising and content measurement and audience research.
             Providing enhanced features.
         The App does not share the collected information with third parties without User's explicit consent.
 

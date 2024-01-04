@@ -30,7 +30,7 @@ const adUnitId = isAndroid
  : 'ca-app-pub-3179323992080572/9648166408';
 
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
-  keywords: ['fashion', 'clothing'],
+  keywords: ['健康', '食品', 'ファッション', 'ビール'],
 });
 
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
@@ -244,7 +244,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     return () => clearInterval(textTimer); // クリーンアップ
   }, []);
 
-//const isAndroid = Platform.OS === 'android'
 
 
 

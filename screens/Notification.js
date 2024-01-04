@@ -36,7 +36,7 @@ const adUnitId = isAndroid
 : 'ca-app-pub-3179323992080572/6064144618';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  keywords: ['fashion', 'clothing'],
+  keywords: ['健康', '食品', 'ファッション', 'ビール'],
 });
 
 

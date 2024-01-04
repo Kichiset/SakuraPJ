@@ -37,15 +37,16 @@ export function AdmobFullBanner() {
   );
 }
 
+
+{/*
 const adInterUnitId = isAndroid
  ? 'ca-app-pub-3179323992080572/2091174818'
  : 'ca-app-pub-3179323992080572/9648166408';
 
 const interstitial = InterstitialAd.createForAdRequest(adInterUnitId, {
-  keywords: ['fashion', 'clothing'],
+  keywords: ['健康', '食品', 'ファッション', 'ビール'],
 });
 
-{/*
 export function AdmobInterstitial() {
   const [loaded, setLoaded] = useState(false);
     useEffect(() => {

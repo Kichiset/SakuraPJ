@@ -18,18 +18,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01"
     },
-    "android": {      
-      "adaptiveIcon": {
-        "backgroundImage": "./assets/splash.png",
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#D4ECEE"
-      },
-      "package": "com.kichiset.SakuraFerry01",
-      "versionCode": 19
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "extra": {
       "eas": {
         "projectId": "adfc8ffb-522f-402a-96b1-0c7e740ba2cf"

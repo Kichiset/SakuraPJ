@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "1066425501078",
+    "firebase_url": "https://sakurajimaferrypj-default-rtdb.firebaseio.com",
+    "project_id": "sakurajimaferrypj",
+    "storage_bucket": "sakurajimaferrypj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066425501078:android:ccc21d2ca20b918c9809b7",
+        "android_client_info": {
+          "package_name": "com.kichiset.SakuraFerry01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066425501078-210ltll0vvcf02ks29gfsct5km4ei079.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kichiset.SakuraFerry01",
+            "certificate_hash": "1d527579aafa9261bc61803720117f20813b0890"
+          }
+        },
+        {
+          "client_id": "1066425501078-7gnr60s8kn5snr2s20nqg88me6q95ord.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6r-YjmYrDra6MPdtcdPRAfyVhw6FsBOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066425501078-7gnr60s8kn5snr2s20nqg88me6q95ord.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1066425501078-k8pmno9arrlm8c7gkorvtq7tahdva95r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kichiset.EasyBoardSakurajimaFerry",
+                "app_store_id": "6468773953"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-3179323992080572~2088979851"
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kichiset.SakuraFerry01"
+      "bundleIdentifier": "com.kichiset.SakuraFerry01",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "extra": {
       "eas": {

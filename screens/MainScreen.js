@@ -26,7 +26,7 @@ import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads'
 const isAndroid = Platform.OS == 'android';
 
 const adUnitId = isAndroid
- ? TestIds.APP_OPEN
+ ? 'ca-app-pub-3179323992080572/5698067704'
  : 'ca-app-pub-3179323992080572/9648166408';
 
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {

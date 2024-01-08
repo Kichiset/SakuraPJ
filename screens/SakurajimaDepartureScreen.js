@@ -103,13 +103,11 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     const textTimer = setInterval(switchText, 5000); // 5秒ごとに切り替え
     return () => clearInterval(textTimer); // クリーンアップ
   }, []);
-
-
-
-<StatusBar style="auto" />
-
+  
+  <StatusBar style="auto" />
+  
   return (
-  <SafeAreaView style={styles.safeArea}>    
+  <SafeAreaView style={styles.safeArea}>
     <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>

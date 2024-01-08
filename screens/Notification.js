@@ -32,7 +32,7 @@ const isAndroid = Platform.OS == 'android';
 //console.log(isAndroid)
 
 const adUnitId = isAndroid
-? TestIds.INTERSTITIAL
+? 'ca-app-pub-3179323992080572/2091174818'
 : 'ca-app-pub-3179323992080572/6064144618';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {

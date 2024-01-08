@@ -29,10 +29,10 @@ import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile
 
 const isAndroid = Platform.OS == 'android';
 
-console.log(isAndroid)
+//console.log(isAndroid)
 
 const adUnitId = isAndroid
-? 'ca-app-pub-3179323992080572/2091174818'
+? TestIds.INTERSTITIAL
 : 'ca-app-pub-3179323992080572/6064144618';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
@@ -133,12 +133,6 @@ const scheduleNotificationAsync = async (setTempDept) => {
   })
 }
 
-
-
-
-
-
-
 // Firebase広告の表示系統
 const [loaded, setLoaded] = useState(false);
 useEffect(() => {
@@ -179,10 +173,11 @@ console.log(loaded,closed,err)
   const [choosenLabel, setChoosenLabel] = useState([0]);
   const [choosenIndex, setChoosenIndex] = useState([0]);
 
+<StatusBar style="auto" />
+
 {/*ここからリターン文（ほとんど表示系）*/}
   return (
   <SafeAreaView style={styles.safeArea}>
-    <StatusBar style="auto" />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.current4DepartureTime}>現在: {currentTime}</Text>
 

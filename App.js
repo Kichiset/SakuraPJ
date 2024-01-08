@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Button,Vibration, Platform,} from 'react-native';
+import { StyleSheet,} from 'react-native';
 import * as Notifications from 'expo-notifications';
 
 import MainScreen from './screens/MainScreen';
@@ -9,37 +9,21 @@ import KagoshimaDepartureScreen from './screens/KagoshimaDepartureScreen';
 import SakurajimaDepartureScreen from './screens/SakurajimaDepartureScreen';
 import Notification from './screens/Notification';
 
-import { AppOpenAd, AdsConsent , AdsConsentDebugGeography, AdsConsentStatus} from 'react-native-google-mobile-ads';
-//import { AdMobBanner } from 'expo-ads-admob';
-
-
-const isAndroid = Platform.OS == 'android';
-console.log(isAndroid, Platform.OS)
-
-const adUnitId = isAndroid
- ? 'ca-app-pub-3179323992080572/5698067704'
- : 'ca-app-pub-3179323992080572/9648166408';
-
-const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
-  keywords: ['健康', '食品', 'ファッション', 'ビール'],
-});
-
-// Preload an app open ad
-appOpenAd.load();
+import { AdsConsent , AdsConsentDebugGeography, AdsConsentStatus} from 'react-native-google-mobile-ads';
 
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  React.useEffect(() => {
+  useEffect(() => {
     requestPermissionsAsync();
   })
 
-    // トラッキング可否を保持する。これをContextなどに持たせて他の画面でも利用する
+  // トラッキング可否を保持する。これをContextなどに持たせて他の画面でも利用する
   // ※ trueでトラッキングしない。falseでトラッキングする
-  const [nonPersonalizedOnly, setNonPersonalizedOnly] = React.useState(true);
+  const [nonPersonalizedOnly, setNonPersonalizedOnly] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // ATTとGDPRの同意状態を取得
     AdsConsent.requestInfoUpdate({
       debugGeography: AdsConsentDebugGeography.EEA, // EU圏としてテストする設定
@@ -64,9 +48,6 @@ export default function App() {
       }
     });
   }, []);
-
-  // Preload an app open ad
-  appOpenAd.load();
 
   return (
     <NavigationContainer>

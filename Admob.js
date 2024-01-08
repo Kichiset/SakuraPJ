@@ -22,7 +22,7 @@ mobileAds()
 
 // ユニットID
 const adBannerUnitId = isAndroid
-  ? "ca-app-pub-3179323992080572/4026178794"
+  ? TestIds.BANNER
   : "ca-app-pub-3179323992080572/5642253032";
 
 export function AdmobFullBanner() {

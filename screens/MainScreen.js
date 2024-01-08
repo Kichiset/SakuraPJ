@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,8 @@ import {
   Linking,
   Platform,
   Animated,
-  Share
+  Share,
+  AppState
 } from 'react-native';
 
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
@@ -23,10 +24,9 @@ import moment from 'moment';
 import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
 
 const isAndroid = Platform.OS == 'android';
-console.log(isAndroid, Platform.OS)
 
 const adUnitId = isAndroid
- ? 'ca-app-pub-3179323992080572/5698067704'
+ ? TestIds.APP_OPEN
  : 'ca-app-pub-3179323992080572/9648166408';
 
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
@@ -56,7 +56,7 @@ import { AdmobFullBanner } from "../Admob";
 
 const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
 const peakSeason = ["2024-01-01","2024-01-02"];
-const tempSchedule=["2023-11-03","2023-11-04","2023-11-05","2023-11-11","2023-11-12","2023-12-03","2023-12-09","2023-12-10","2023-12-16","2023-12-17"];
+const tempSchedule=["2024-01-14","2024-01-20","2024-01-21","2024-01-27","2024-02-04","2024-02-10","2024-02-11","2024-02-12","2024-02-17","2024-02-18","2024-02-23"];
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
 
@@ -82,6 +82,27 @@ const sortSchedule = (schedule, currentTime) => {
 const openLink = (url) => {
   Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const App = (props) => { // propsを引数として受け取る  // 状態変数の定義
   // 状態変数の定義
@@ -246,18 +267,57 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 
 
 
-
+{/*
   // Preload an app open ad
   appOpenAd.load();
 
+  const [closed, setClosed] = useState(false);
+  useEffect(() => {
+    const unsubscribe = appOpenAd.addAdEventListener(AdEventType.CLOSED, () => {
+      setClosed(true);
+  });
+  // Start loading the interstitial straight away
+  appOpenAd.load();
+  // Unsubscribe from events on unmount
+  return unsubscribe;
+}, []);
 
-  const onShare = async () => {
+const [flag, setFlag] = useState(false);
+const [isBackground, setAppState] = useState(false);
+  useEffect(() => {
+    const onChange = (nextAppState: AppStateStatus) => {
+      setAppState(nextAppState != "active");
+      setFlag(nextAppState != "active");
+    };
+      AppState.addEventListener("change", onChange);
+
+    return () => {
+      AppState.removeEventListener("change", onChange), setFlag;
+    };
+  }, []);
+
+
+  
+
+
+
+  console.log(appOpenAd.loaded, isBackground, closed, flag)
+
+
+
+
+  // ここに復帰判定
+  if(appOpenAd.loaded && flag){
+    appOpenAd.show();
+    appOpenAd.load();
+  }
+*/}
+
+  async function onShare() {
     try {
       const result = await Share.share({
         title: 'タイトル',
-        message:
-          '先発次発という桜島フェリーに乗るときに便利なアプリ。\n Android: https://play.google.com/store/apps/details?id=com.kichiset.SakuraFerry01&pcampaignid=web_share \n IOS: https://apps.apple.com/jp/app/%E6%A1%9C%E5%B3%B6%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC-%E5%85%88%E7%99%BA%E6%AC%A1%E7%99%BA-%E6%99%82%E5%88%BB%E8%A1%A8/id6465898880',
-        
+        message: '先発次発という桜島フェリーに乗るときに便利なアプリ。\n Android: https://play.google.com/store/apps/details?id=com.kichiset.SakuraFerry01&pcampaignid=web_share \n IOS: https://apps.apple.com/jp/app/%E6%A1%9C%E5%B3%B6%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC-%E5%85%88%E7%99%BA%E6%AC%A1%E7%99%BA-%E6%99%82%E5%88%BB%E8%A1%A8/id6465898880',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -271,11 +331,12 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     } catch (error) {
       Alert.alert(error.message);
     }
-  };
+  }
+
+<StatusBar style="auto" />
 
   return (
   <SafeAreaView style={styles.safeArea}>
-    <StatusBar style="auto" />
     <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>

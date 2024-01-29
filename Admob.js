@@ -13,6 +13,8 @@ import mobileAds ,{
   AdEventType,
 }from "react-native-google-mobile-ads";
 
+
+
 const isAndroid = Platform.OS == 'android';
 
 // 初期化

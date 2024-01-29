@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>1066425501078-taps20g6edqglmu2lj8gel4mbjldf5b8.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1066425501078-taps20g6edqglmu2lj8gel4mbjldf5b8</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>1066425501078-210ltll0vvcf02ks29gfsct5km4ei079.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBruJMTjuebDZQpv6BXFt28jFTE44mqEk0</string>
+	<string>AIzaSyCCvz-HCAGOubobYUxT1qoM8XnEaa61PhI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1066425501078</string>
+	<string>905324145495</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.kichiset.SakuraFerry01</string>
 	<key>PROJECT_ID</key>
-	<string>sakurajimaferrypj</string>
+	<string>ferrytimetable-8e728</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sakurajimaferrypj.appspot.com</string>
+	<string>ferrytimetable-8e728.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1066425501078:ios:69cad864fe8eec6d9809b7</string>
-	<key>DATABASE_URL</key>
-	<string>https://sakurajimaferrypj-default-rtdb.firebaseio.com</string>
+	<string>1:905324145495:ios:bb2c0547b7fd5a74d3ac12</string>
 </dict>
 </plist>

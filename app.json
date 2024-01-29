@@ -2,7 +2,7 @@
   "expo": {
     "name": "SakuraFerry01",
     "slug": "SakuraFerry01",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "orientation": "portrait",
     "icon": "./assets/next.png",
     "userInterfaceStyle": "light",
@@ -15,22 +15,16 @@
       "**/*"
     ],
     "ios": {
-      ,
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
-      "versionCode": 16,
+      "versionCode": 22,
       "adaptiveIcon": {
         "backgroundImage": "./assets/splash.png",
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#D4ECEE",
-        "androidStatusBarColor": "#334393",
-        "androidStatusBar": {
-          "barStyle": "light-content",
-          "backgroundColor": "#334393"
-        }
+        "backgroundColor": "#D4ECEE"
       },
       "package": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./google-services.json"
@@ -55,5 +49,19 @@
     "ios_app_id": "ca-app-pub-3179323992080572~9840257619",
     "delay_app_measurement_init": true,
     "user_tracking_usage_description": "許可することで、より関連性の高い広告を表示することができるようになります。"
-  }
+  },
+  "plugins": [
+    "@react-native-firebase/app",
+    "@react-native-firebase/perf",
+    "@react-native-firebase/crashlytics",
+    [
+      "expo-build-properties",
+      {
+        "ios": {
+          "useFrameworks": "static"
+        }
+      }
+    ]
+    
+  ]
 }

@@ -267,7 +267,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
 
 
 
-{/*
   // Preload an app open ad
   appOpenAd.load();
 
@@ -311,7 +310,6 @@ const [isBackground, setAppState] = useState(false);
     appOpenAd.show();
     appOpenAd.load();
   }
-*/}
 
   async function onShare() {
     try {

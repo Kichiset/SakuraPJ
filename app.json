@@ -19,6 +19,13 @@
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
+    "android": {
+      "versionCode": 22,
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/splash.png",
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#D4ECEE"
+      },
       "package": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./google-services.json"
     },

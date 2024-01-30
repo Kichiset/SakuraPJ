@@ -266,7 +266,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   }, []);
 
 
-
+if(!isAndroid){
   // Preload an app open ad
   appOpenAd.load();
 
@@ -294,23 +294,13 @@ const [isBackground, setAppState] = useState(false);
       AppState.removeEventListener("change", onChange), setFlag;
     };
   }, []);
-
-
-  
-
-
-
   console.log(appOpenAd.loaded, isBackground, closed, flag)
-
-
-
-
   // ここに復帰判定
   if(appOpenAd.loaded && flag){
     appOpenAd.show();
     appOpenAd.load();
   }
-
+}
   async function onShare() {
     try {
       const result = await Share.share({

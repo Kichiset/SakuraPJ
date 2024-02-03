@@ -12,7 +12,20 @@
           "package_name": "com.kichiset.EasyBoardSakurajimaFerry"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "905324145495-tg1hohkim9d1t61lc61ts61q22j1krsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kichiset.EasyBoardSakurajimaFerry",
+            "certificate_hash": "86f8cc0a9232d961ef4a7f1fec338d6285e1ee1f"
+          }
+        },
+        {
+          "client_id": "905324145495-07mnte1tfoij7oii7geoo66pko6t2agr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDI0AeyPVukEleAfMbvMdXKZCq2kjobDbg"
@@ -20,7 +33,20 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905324145495-07mnte1tfoij7oii7geoo66pko6t2agr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "905324145495-isie48hltdhcnstgd1qmvcbc09j7rd3j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kichiset.SakuraFerry01",
+                "app_store_id": "6683131252"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +57,20 @@
           "package_name": "com.kichiset.SakuraFerry01"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "905324145495-o0ja9ujgoph3ghojeft81grkpg02k28v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kichiset.SakuraFerry01",
+            "certificate_hash": "733c7bb939d275c33d878c119ea8e52ea9acecd7"
+          }
+        },
+        {
+          "client_id": "905324145495-07mnte1tfoij7oii7geoo66pko6t2agr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDI0AeyPVukEleAfMbvMdXKZCq2kjobDbg"
@@ -39,7 +78,20 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905324145495-07mnte1tfoij7oii7geoo66pko6t2agr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "905324145495-isie48hltdhcnstgd1qmvcbc09j7rd3j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kichiset.SakuraFerry01",
+                "app_store_id": "6683131252"
+              }
+            }
+          ]
         }
       }
     }

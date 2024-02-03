@@ -17,8 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "buildnumber": "23"
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "web": {
       "favicon": "./assets/favicon.png"

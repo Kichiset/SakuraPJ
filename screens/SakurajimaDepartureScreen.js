@@ -104,10 +104,9 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     return () => clearInterval(textTimer); // クリーンアップ
   }, []);
   
-  <StatusBar style="auto" />
-  
-  return (
+return (
   <SafeAreaView style={styles.safeArea}>
+    <StatusBar style="default"/>
     <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>

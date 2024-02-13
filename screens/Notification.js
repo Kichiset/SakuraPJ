@@ -173,11 +173,10 @@ console.log(loaded,closed,err)
   const [choosenLabel, setChoosenLabel] = useState([0]);
   const [choosenIndex, setChoosenIndex] = useState([0]);
 
-<StatusBar style="auto" />
-
 {/*ここからリターン文（ほとんど表示系）*/}
-  return (
+return (
   <SafeAreaView style={styles.safeArea}>
+    <StatusBar style="default"/>
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.current4DepartureTime}>現在: {currentTime}</Text>
 

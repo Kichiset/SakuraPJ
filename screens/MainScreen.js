@@ -56,7 +56,7 @@ import { AdmobFullBanner } from "../Admob";
 
 const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
 const peakSeason = ["2024-01-01","2024-01-02"];
-const tempSchedule=["2024-01-14","2024-01-20","2024-01-21","2024-01-27","2024-02-04","2024-02-10","2024-02-11","2024-02-12","2024-02-17","2024-02-18","2024-02-23"];
+const tempSchedule=["2024-01-14","2024-01-20","2024-01-21","2024-01-27","2024-02-04","2024-02-10","2024-02-11","2024-02-12","2024-02-17","2024-02-18"];
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
 
@@ -82,27 +82,6 @@ const sortSchedule = (schedule, currentTime) => {
 const openLink = (url) => {
   Linking.openURL(url).catch(err => console.error('Failed to open link:', err));
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const App = (props) => { // propsを引数として受け取る  // 状態変数の定義
   // 状態変数の定義
@@ -157,7 +136,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   }, []);
   
   
-  
   // ヘッドラインニュースのAPIリクエストを設定する
   useEffect(() => {
     const fetchData = async () => {
@@ -181,12 +159,6 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       clearInterval(fetchHeadlineTimer);
     };
   }, []);
-
-  
-  
-  
-  
-  
 
   // 時刻表の更新と表示を行う
   useEffect(() => {
@@ -399,4 +371,3 @@ return (
 };
 
 export default App;
-

@@ -15,6 +15,7 @@ import {
   Share,
   AppState
 } from 'react-native';
+import DateTimePickerModal from "react-native-modal-datetime-picker"; //カレンダー
 
 import { styles } from './styles'; // 新しく作成したstyles.jsファイルをインポート
 
@@ -134,6 +135,43 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
       clearInterval(fetchHolidaysTimer);
     };
   }, []);
+
+
+  //　カレンダー表示用のAPI叩く
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisible(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisible(false);
+  };
+
+  const handleConfirm = (date) => {
+    setSelectedDate(date);
+    hideDatePicker();
+
+    console.log(moment(date).add(9, 'h').format('YYYY-MM-DD'))
+   
+
+    //同じロジックを下で使っているので気に入らない。要関数化
+    const isWeekEnd = moment(date).format('d') % 6 == 0 ? true : false;
+    const isHoliday = holidaysData.hasOwnProperty(moment(date).format('YYYY-MM-DD'));
+    const isPrePost = peakSeason_prePost.includes(moment(date).format('YYYY-MM-DD'));
+    const isPeak = peakSeason.includes(moment(date).format('YYYY-MM-DD'));
+    const isTemp = tempSchedule.includes(moment(date).format('YYYY-MM-DD'));
+
+    console.log(isHoliday, !isWeekEnd, isTemp, isWeekEnd)
+
+    if(isTemp||(!isWeekEnd)){
+      openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/koro-jikoku/documents/01kaiteidaiyajikokuhyouheijitu.pdf")
+    } else {
+      openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/koro-jikoku/documents/02kaiteidaiyajikokuhyoudonichishuku.pdf")
+    }
+  };
+
   
   
   // ヘッドラインニュースのAPIリクエストを設定する
@@ -206,7 +244,12 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
      Port = setPort;
   return(Port)
   } 
-  
+/*
+  analytics.logEvent("screen_view", {
+    firebase_screen_class: "EditProfile",
+    firebase_screen: "EditProfile",
+  });
+  */
   const KagoPort = "鹿児島港発"
   const SakuPort = "桜島港発"
 
@@ -334,6 +377,21 @@ return (
         <Text style={styles.nextDeparture}>次発 {nextDepartureSakurajima[1]}</Text>
       </View>
       </TouchableOpacity>
+
+      {/* 屈辱的だけど、カレンダーをつけて当日の全スケジュールを表示（公式サイトのpdfにぶっ飛ばしてやる【仮】）*/}
+        <TouchableOpacity onPress={
+          showDatePicker
+        }
+          style={styles.showPdfFrame}>
+          <Text>カレンダーから</Text><Text>公式時刻表を表示</Text>
+        </TouchableOpacity>
+          <DateTimePickerModal
+            date={selectedDate}
+            isVisible={datePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
       
       <View style={styles.headLineNews}>
       <Text>{headline[currentTextIndex % messageLength +1]}</Text>

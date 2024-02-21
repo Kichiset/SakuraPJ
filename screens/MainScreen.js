@@ -23,16 +23,19 @@ import axios from 'axios';
 import moment from 'moment';
 
 import { AppOpenAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+import { getLocales } from 'expo-localization';
 
 const isAndroid = Platform.OS == 'android';
-
 const adUnitId = isAndroid
  ? 'ca-app-pub-3179323992080572/5698067704'
  : 'ca-app-pub-3179323992080572/9648166408';
-
 const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
   keywords: ['健康', '食品', 'ファッション', 'ビール'],
 });
+
+const locales = getLocales();
+const languageTag = locales[0].languageTag;
+console.log('locales:', locales[0].languageTag, locales);
 
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
 const Headline_URL = 'https://raw.githubusercontent.com/Kichiset/SakuraPJ/main/headlineMessage.json';
@@ -389,8 +392,13 @@ return (
             date={selectedDate}
             isVisible={datePickerVisible}
             mode="date"
+            display='calendar'
+            value={new Date()} 
+            maximumDate={new Date(2025, 2, 31)}
+            minimumDate={new Date(2023, 0, 1)}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            locale={languageTag}
           />
       
       <View style={styles.headLineNews}>

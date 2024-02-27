@@ -314,10 +314,10 @@ const [isBackground, setAppState] = useState(false);
   }, []);
   console.log(appOpenAd.loaded, isBackground, closed, flag)
   // ここに復帰判定
-  if(appOpenAd.loaded && flag){
-    appOpenAd.show();
-    appOpenAd.load();
-  }
+  //if(appOpenAd.loaded && flag){
+  //  appOpenAd.show();
+  //  appOpenAd.load();
+  //}
 }
   async function onShare() {
     try {

@@ -221,9 +221,9 @@ return (
             setDeptTime = getDeptTime();
             setMessage(getMessage(message,counter));
             // No advert ready to show yet
-            if(loaded && !closed){
-              interstitial.show();
-            }
+            //if(loaded && !closed){
+            //  interstitial.show();
+            //}
             Notifications.cancelAllScheduledNotificationsAsync();
             scheduleNotificationAsync(setDeptTime)
             // 

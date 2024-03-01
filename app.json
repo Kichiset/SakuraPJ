@@ -18,7 +18,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "34"
+      "buildNumber": "4",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "versionCode": 27,
@@ -28,7 +31,8 @@
         "backgroundColor": "#D4ECEE"
       },
       "package": "com.kichiset.SakuraFerry01",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,9 +41,6 @@
       "eas": {
         "projectId": "adfc8ffb-522f-402a-96b1-0c7e740ba2cf"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/adfc8ffb-522f-402a-96b1-0c7e740ba2cf"
@@ -107,6 +108,8 @@
   },
   "plugins": [
     "@react-native-firebase/app",
+    "@react-native-firebase/perf",
+    "@react-native-firebase/crashlytics",
     [
       "expo-build-properties",
       {

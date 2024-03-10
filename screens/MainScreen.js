@@ -342,7 +342,7 @@ const [isBackground, setAppState] = useState(false);
 return (
   <SafeAreaView style={styles.safeArea}>
     <StatusBar style="default"/>
-    <AdmobFullBanner />
+    {/*<AdmobFullBanner />*/}
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
       

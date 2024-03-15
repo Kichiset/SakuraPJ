@@ -18,9 +18,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "5",
+      "buildNumber": "6",
       "runtimeVersion": {
-        "policy": "appVersion"
+        "policy": "sdkVersion"
       }
     },
     "android": {

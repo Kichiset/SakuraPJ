@@ -39,7 +39,6 @@ console.log('locales:', locales[0].languageTag, locales);
 
 const API_URL = 'https://holidays-jp.github.io/api/v1/date.json';
 const Headline_URL = 'https://raw.githubusercontent.com/Kichiset/SakuraPJ/main/headlineMessage.json';
-const main_url = 'https://www.amazon.co.jp/dp/B0CH51LQMG';
 const sub_url = 'https://onjunpenguin.com/';
 
 // バナー広告用のリンク
@@ -342,7 +341,7 @@ const [isBackground, setAppState] = useState(false);
 return (
   <SafeAreaView style={styles.safeArea}>
     <StatusBar style="default"/>
-    {/*<AdmobFullBanner />*/}
+    <AdmobFullBanner />
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.currentTime}>現在: {currentTime}</Text>
       
@@ -406,17 +405,7 @@ return (
       {/*}<Text>{headline[currentTextIndex]}</Text>*/}
       
       </View>
-      
-        <TouchableOpacity onPress={() => openLink(main_url)} style={styles.linkButton}>
-          <Image
-            source={require('..//assets/桜島の不思議.png')} // 画像ファイルのパスを指定
-            style={styles.linkButtonImage}
-          />
-        </TouchableOpacity>
-		<Text >▲先発次発アプリのオススメです。▲</Text>
-		<Text >▲買って・読んで桜島を応援してください▲</Text>
 
-            
         <TouchableOpacity onPress={() => openLink(bannerUrls[currentBannerIndex])} style={styles.linkButton}>
           <Image
             source={bannerImages[currentBannerIndex]} // 画像ファイルのパスを指定

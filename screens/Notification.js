@@ -160,7 +160,7 @@ useEffect(() => {
     setERR(true);
   });
   // Start loading the interstitial straight away
-  interstitial.load();    
+  interstitial.load();
   // Unsubscribe from events on unmount
   return unsubscribe;
 }, []);
@@ -221,9 +221,9 @@ return (
             setDeptTime = getDeptTime();
             setMessage(getMessage(message,counter));
             // No advert ready to show yet
-            //if(loaded && !closed){
-            //  interstitial.show();
-            //}
+            if(loaded && !closed){
+              interstitial.show();
+            }
             Notifications.cancelAllScheduledNotificationsAsync();
             scheduleNotificationAsync(setDeptTime)
             // 

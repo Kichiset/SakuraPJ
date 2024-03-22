@@ -20,7 +20,7 @@
       "googleServicesFile": "./GoogleService-Info.plist",
       "buildNumber": "6",
       "runtimeVersion": {
-        "policy": "appVersion"
+        "policy": "sdkVersion"
       }
     },
     "android": {

@@ -158,6 +158,20 @@ public class ReactNativeGoogleMobileAdsBannerAdViewManager
     reactViewGroup.setPropsChanged(false);
   }
 
+  @Override
+  public void onDropViewInstance(@NonNull ReactNativeAdView reactViewGroup) {
+    BaseAdView adView = getAdView(reactViewGroup);
+    if (adView != null) {
+      adView.setAdListener(null);
+      if (adView instanceof AdManagerAdView) {
+        ((AdManagerAdView) adView).setAppEventListener(null);
+      }
+      adView.destroy();
+      reactViewGroup.removeView(adView);
+    }
+    super.onDropViewInstance(reactViewGroup);
+  }
+
   private BaseAdView initAdView(ReactNativeAdView reactViewGroup) {
     BaseAdView oldAdView = getAdView(reactViewGroup);
     if (oldAdView != null) {
@@ -168,19 +182,18 @@ public class ReactNativeGoogleMobileAdsBannerAdViewManager
       oldAdView.destroy();
       reactViewGroup.removeView(oldAdView);
     }
-    BaseAdView adView;
-    if (ReactNativeGoogleMobileAdsCommon.isAdManagerUnit(reactViewGroup.getUnitId())) {
-      Activity currentActivity = ((ReactContext) reactViewGroup.getContext()).getCurrentActivity();
-      if (currentActivity != null) {
-        // in order to display the debug menu for GAM ads we need the activity context
-        // https://github.com/invertase/react-native-google-mobile-ads/issues/188
-        adView = new AdManagerAdView(currentActivity);
-      } else {
-        return null;
-      }
-    } else {
-      adView = new AdView(reactViewGroup.getContext());
-    }
+
+    // For optimal mediation performance ad objects should be initialized with
+    // activity, rather than just context:
+    // https://developers.google.com/admob/android/mediation#initialize_your_ad_object_with_an_activity_instance
+    Activity currentActivity = ((ReactContext) reactViewGroup.getContext()).getCurrentActivity();
+    if (currentActivity == null) return null;
+
+    BaseAdView adView =
+        ReactNativeGoogleMobileAdsCommon.isAdManagerUnit(reactViewGroup.getUnitId())
+            ? new AdManagerAdView(currentActivity)
+            : new AdView(currentActivity);
+
     adView.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
     adView.setOnPaidEventListener(
         new OnPaidEventListener() {

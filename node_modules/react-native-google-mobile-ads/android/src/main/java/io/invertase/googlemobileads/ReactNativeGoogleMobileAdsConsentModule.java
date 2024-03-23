@@ -233,6 +233,11 @@ public class ReactNativeGoogleMobileAdsConsentModule extends ReactNativeModule {
   }
 
   @ReactMethod
+  public void getConsentInfo(Promise promise) {
+    promise.resolve(getConsentInformation());
+  }
+
+  @ReactMethod
   public void reset() {
     consentInformation.reset();
   }
@@ -245,6 +250,30 @@ public class ReactNativeGoogleMobileAdsConsentModule extends ReactNativeModule {
       // https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/TCFv2/IAB%20Tech%20Lab%20-%20CMP%20API%20v2.md#in-app-details
       String tcString = prefs.getString("IABTCF_TCString", null);
       promise.resolve(tcString);
+    } catch (Exception e) {
+      rejectPromiseWithCodeAndMessage(promise, "consent-string-error", e.toString());
+    }
+  }
+
+  @ReactMethod
+  public void getGdprApplies(Promise promise) {
+    try {
+      SharedPreferences prefs =
+          PreferenceManager.getDefaultSharedPreferences(getReactApplicationContext());
+      int gdprApplies = prefs.getInt("IABTCF_gdprApplies", 0);
+      promise.resolve(gdprApplies == 1);
+    } catch (Exception e) {
+      rejectPromiseWithCodeAndMessage(promise, "consent-string-error", e.toString());
+    }
+  }
+
+  @ReactMethod
+  public void getPurposeConsents(Promise promise) {
+    try {
+      SharedPreferences prefs =
+          PreferenceManager.getDefaultSharedPreferences(getReactApplicationContext());
+      String purposeConsents = prefs.getString("IABTCF_PurposeConsents", "");
+      promise.resolve(purposeConsents);
     } catch (Exception e) {
       rejectPromiseWithCodeAndMessage(promise, "consent-string-error", e.toString());
     }

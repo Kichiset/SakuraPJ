@@ -2,7 +2,7 @@
   "expo": {
     "name": "SakuraFerry01",
     "slug": "SakuraFerry01",
-    "version": "1.4.9.0",
+    "version": "1.4.10",
     "orientation": "portrait",
     "icon": "./assets/next.png",
     "userInterfaceStyle": "light",

@@ -58,8 +58,9 @@ const bannerImages = [
 import { AdmobFullBanner } from "../Admob";
 
 const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
-const peakSeason = ["2024-01-01","2024-01-02"];
-const tempSchedule=["2024-01-14","2024-01-20","2024-01-21","2024-01-27","2024-02-04","2024-02-10","2024-02-11","2024-02-12","2024-02-17","2024-02-18"];
+const peakSeason1 = ["2024-04-28"];
+const peakSeason2 = ["2024-05-06"];
+const tempSchedule=["2024-04-27", "2024-04-29"];
 
 const isWeekEnd = moment().format('d') % 6 == 0 ? true : false;
 
@@ -203,17 +204,17 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
   // 時刻表の更新と表示を行う
   useEffect(() => {
     const isHoliday = holidaysData.hasOwnProperty(moment().format('YYYY-MM-DD'));
-    const isPrePost = peakSeason_prePost.includes(moment().format('YYYY-MM-DD'));
-    const isPeak = peakSeason.includes(moment().format('YYYY-MM-DD'));
+    const isPeak1 = peakSeason1.includes(moment().format('YYYY-MM-DD'));
+    const isPeak2 = peakSeason2.includes(moment().format('YYYY-MM-DD'));
     const isTemp = tempSchedule.includes(moment().format('YYYY-MM-DD'));
     
      // 使用するダイヤの種類を選択する
     let scheduleType = '平日';
     if (isTemp) {
-      scheduleType = '平日';
-    } else if (isPrePost) {
+      scheduleType = '土日祝日';
+    } else if (isPeak1) {
       scheduleType = '繁忙期_1';
-    } else if (isPeak) {
+    } else if (isPeak2) {
       scheduleType = '繁忙期_2';
     }else if (isHoliday||isWeekEnd) {
       scheduleType = '土日祝日';

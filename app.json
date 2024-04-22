@@ -2,7 +2,7 @@
   "expo": {
     "name": "SakuraFerry01",
     "slug": "SakuraFerry01",
-    "version": "1.4.11",
+    "version": "1.4.12",
     "orientation": "portrait",
     "icon": "./assets/next.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kichiset.SakuraFerry01",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "7",
+      "buildNumber": "8",
       "runtimeVersion": {
         "policy": "sdkVersion"
       }

@@ -162,13 +162,17 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     //同じロジックを下で使っているので気に入らない。要関数化
     const isWeekEnd = moment(date).format('d') % 6 == 0 ? true : false;
     const isHoliday = holidaysData.hasOwnProperty(moment(date).format('YYYY-MM-DD'));
-    const isPrePost = peakSeason_prePost.includes(moment(date).format('YYYY-MM-DD'));
-    const isPeak = peakSeason.includes(moment(date).format('YYYY-MM-DD'));
+    const isPeak1 = peakSeason1.includes(moment(date).format('YYYY-MM-DD'));
+    const isPeak2 = peakSeason2.includes(moment(date).format('YYYY-MM-DD'));
     const isTemp = tempSchedule.includes(moment(date).format('YYYY-MM-DD'));
 
     console.log(isHoliday, !isWeekEnd, isTemp, isWeekEnd)
 
-    if(isTemp||(!isWeekEnd)){
+    if(isPeak1){
+      openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/unko_jokyo/documents/20240428jikokuhyou.pdf")
+    }else if(isPeak2){
+      openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/unko_jokyo/documents/20240506jikokuhyou.pdf")
+    }else if(isTemp||(!isWeekEnd)){
       openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/koro-jikoku/documents/01kaiteidaiyajikokuhyouheijitu.pdf")
     } else {
       openLink("https://www.city.kagoshima.lg.jp/sakurajima-ferry/koro-jikoku/documents/02kaiteidaiyajikokuhyoudonichishuku.pdf")

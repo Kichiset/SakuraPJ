@@ -57,7 +57,7 @@ const bannerImages = [
 // Admobバナー
 import { AdmobFullBanner } from "../Admob";
 
-const peakSeason_prePost = ["2023-12-29", "2023-12-30", "2023-12-31", "2024-01-03"];
+const peakSeason_prePost = ["2024-04-29"];
 const peakSeason1 = ["2024-04-28"];
 const peakSeason2 = ["2024-05-06"];
 const tempSchedule=["2024-04-27", "2024-04-29"];

@@ -211,6 +211,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     const isPeak1 = peakSeason1.includes(moment().format('YYYY-MM-DD'));
     const isPeak2 = peakSeason2.includes(moment().format('YYYY-MM-DD'));
     const isTemp = tempSchedule.includes(moment().format('YYYY-MM-DD'));
+    console.log(isPeak1,isPeak2,isTemp)
     
      // 使用するダイヤの種類を選択する
     let scheduleType = '平日';
@@ -226,6 +227,7 @@ const App = (props) => { // propsを引数として受け取る  // 状態変数
     // ダイヤのスケジュールを取得
     const sakurajimaSchedule = ferryTimetable["桜島港"][scheduleType];
     const kagoshimaSchedule = ferryTimetable["鹿児島港"][scheduleType];
+    console.log(ferryTimetable["桜島港"]["繁忙期_2"],isPeak2)
 
     // 時刻表を現在時刻を基準に並び替える
     const sortedSakurajimaSchedule = sortSchedule(sakurajimaSchedule, currentTime);
